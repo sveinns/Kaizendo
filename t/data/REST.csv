@@ -1,0 +1,50 @@
+Method,URL,Content Type,In-document URL,Actual HTTP Request,Reply status,Reply Headers,Expected result,Description,Priority,Edit form leads to,Comments and issues
+GET,/,text/html,/,,200 OK,,List (projects),List available projects; Main site page,1,Create project
+GET,/_user,text/html,/_user,,200 OK,,List (users),Show a list of users on the site,,Register new user
+POST,/_user,application/x-www-form-urlencoded,/_user,,201 Created,Location: /_user/username,Register (new user),Create a new user for the site
+GET,/_user/id,text/html,/_user/username,,200 OK,,Show (user),Show a specific user on the site
+GET,/;,text/html,/;,,200 OK,,List (aspects),Give an overview of all the aspects used across all projects,4
+GET,/;,application/json,/;,,200 OK,,List (aspects),"List all available aspects across projects, as JSON",5
+GET,/#,text/html,/#,/_c,200 OK,,List (comments),Show comments to project overview page,2,Create comment
+GET,/#,application/json,/#,/_c,200 OK,,List (comments),"List of comments at main page, as JSON",3
+POST,/#,application/x-www-form-urlencoded,/#,/_c,201 Created,Location: /#c01,Add comment (projects),"Create a new comment, then redirect to this comment (e.g. ""Location: /#c01"")"
+PUT,/#,application/x-www-form-urlencoded,/#,/_c,405 Method Not Allowed,"Allow: GET, POST",,Replace comment thread (We don't want that yet)
+GET,/#comment,application/unsupported,/#c01,/_c/c01,406 Not Acceptable,,Display (comments)
+GET,/#comment,text/html,/#c01,/_c/c01,200 OK,,Display (comments),"Show specific comment and it's thread, on the main page",2,Reply to comment
+GET,/#comment,application/json,/#c01,/_c/c01,200 OK,,Display (comments),"Get the contents of all comments in thread starting with #c01, as JSON",3
+GET,/project,text/html,/history,,200 OK,,List (texts),List all sections in project; Main project page,1,Create section
+GET,/project;,text/html,/history;,,200 OK,,List (aspects),List available aspects within a project,4
+POST,/project;,application/x-www-form-urlencoded,/history;,,405 Method Not Allowed,Allow: GET,,Create an aspect without creating the text (we don't want that)
+GET,/project?r=list,text/html,/history?r=list,,200 OK,,List (revisions),List major revisions/snapshots/releases of a project,7
+GET,/project.git,--,/history.git,,200 OK,,Download git project,,9
+GET,/project/_user,text/html,/history/_user,,200 OK,,List (users in project),Show a list of users connected to a project,,Add user to project
+GET,/project/chapter,text/html,/history/1,,200 OK,,Display (text),Show specific section page (no comments),1
+GET,/project/chapter,text/html,/history/1,,302 Found,Location: /history/1?r=latestrev,Redirect to permanent URL,Get the permanent URL of current version ,3,,Is this a good idea?
+GET,/project/chapter;,text/html,/history/1;,,200 OK,,List (aspects),List available aspects of a section,4,Create aspect
+POST,/project/chapter;,application/x-www-form-urlencoded,/history/1;,,201 Created,Location: /history/1;aspect1,Add aspect (text),"Create a new aspect for a section, then redirect to the new aspect"
+GET,/project/chapter;+aspect1,text/html,/history/1;+simple,,200 OK,,Display (diff),"Compare section HEAD aspect and another aspect, with diff",5
+GET,/project/chapter;aspect;aspect#,text/html,/history/1;simple;extrarefs#,/history/1;simple;extrarefs/_c/c01,404 Not Found,,,Show comments regarding section's aspect 1 and 2 non-diffing comparison (not useful?),9
+GET,/project/chapter;aspect1/,text/html,/history/1;simple/,,200 OK,,Display (text),Show a section's aspect text (no comments),4
+GET,/project/chapter;aspect1/static/img.png,image/png,/history/1;simple/static/timeline.png,,200 OK,,Transfer (image),Show a section's aspect text (no comments),4
+GET,"/project/chapter;aspect1,aspect2/",text/html,"/history/1;simple,dyslectic/",,200 OK,,Display (text),Show a section's combination-aspect as text (no comments),9
+GET,"/project/chapter;aspect1,aspect2;aspect3",text/html,"/history/1;simple,dyslectic;extrarefs",,200 OK,,Display (text),"Compare two aspects (where one is a combination-aspect) of a section next to eachother, but without diff",9
+GET,"/project/chapter;aspect1,aspect2+aspect3",text/html,"/history/1;simple,dyslectic+extrarefs",,200 OK,,Display (diff),"Compare a section's aspect 1 (where 1 is a combibation-aspect) and 2, with diff",9
+GET,/project/chapter;aspect1;aspect2,text/html,/history/1;simple;extrarefs,,200 OK,,Display (text),"Compare two aspects of a section next to eachother, but without diff",8
+GET,/project/chapter;aspect1#comment,text/html,/history/1;simple#c01,/history/1;simple/_c/c01,200 OK,,Display (comments),Specific comment/discussion to an aspect text,4
+POST,/project/chapter;aspect1#comment,application/x-www-form-urlencoded,/history/1;simple#c01,/history/1;simple/_c/c01,201 Created,Location: /history/1;simple#c02,Reply comment (text),"Create a reply to comment, then redirect to new comment"
+GET,/project/chapter;aspect1+aspect2,text/html,/history/1;simple+extrarefs,,200 OK,,Display (diff),"Compare a section's aspect 1 and 2, with diff",5
+GET,/project/chapter;aspect1+aspect2?r=revision,text/html,/history/1;simple+extrarefs?r=1234,,200 OK,,Display (diff),"Within a specific revision of a project; compare two aspects of it, with diff",6
+GET,/project/chapter;aspect1+aspect2#,text/html,/history/1;simple+extrarefs#,/history/1;simple+extrarefs/_c/c01,404 Not Found,,,Show comments regarding section's aspect 1 and 2 diff comprison (not useful?),,,Would it be better to just redirect? Is it useful to comment a diff? What about revisions?
+GET,/project/chapter?depth=4#comment,text/html,/history/1?depth=4#c01,/history/1/_c/c01?depth=4,200 OK,,"Display (comments, with depth of 4 or less)","Show specific section, list comment thread starting with #c01, but no comments with depth of more than 4",8
+GET,/project/chapter?r=list,text/html,/history/1?r=list,,200 OK,,List (revisions),List major revisions/snapshots/releases of a section,7
+GET,/project/chapter?r=revision,text/html,/history/1?r=1234,,200 OK,,Display (text),Show specific revision of a section,6
+GET,/project/chapter/_user,text/html,/history/1/_user,,404 Not Found,,,List of users connected to sections doesn't make sense
+GET,/project/chapter/static/some_image.jpg,image/jpg; image/png,/history/1/static/overview.jpg,,200 OK,,Display (image),Show an image,1
+GET,/project/chapter#,text/html,/history/1#,/history/_c,200 OK,,List (comments),Show specific section (List all comment threads),2,Create comment
+GET,/project/chapter#comment,text/html,/history/1#c01,/history/1/_c/c01,200 OK,,Display (comments),"Show specific section, list comment thread starting with #c01",2,Reply to comment
+POST,/project/chapter#comment,application/x-www-form-urlencoded,/history/1#c01,/history/1/_c/c01,201 Created,Location: /history/1#c02,Reply comment (text),"Create a reply to comment, then redirect to new comment"
+GET,/project/chapter#paragraph,text/html,/history/1#p01,/history/1,200 OK,,"Display (text, at paragraph)",Show specific section at the paragraph with the id #p01,8
+GET,/project/chapter1+chapter2,text/html,/history/1+2,,200 OK,,Display (diff),Compare with diff: section 1 and 2,4
+GET,/static/images/some_ui_image.jpg,image/jpg; image/png,/static/images/banner01.jpg,,200 OK,,Transfer (image),Download static image,2
+GET,/static/js/some_ui_script.js,application/javascript; */*,/static/js/comments.js,,200 OK,,Transfer (JS code),Download static Javascript,2
+GET,/static/css/layout.css,text/css; */*,/static/css/layout.css,,200 OK,,Transfer (CSS),Download static CSS,2
