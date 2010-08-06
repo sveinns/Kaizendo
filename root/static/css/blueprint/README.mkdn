@@ -1,0 +1,21 @@
+# About the Blueprint CSS Framework
+
+This is a generated export of the Blueprint CSS library. To create an updated
+version, check out the blueprint source from Github, then edit settings.yml 
+and run the following command:
+
+# Updating
+
+  $ git clone http://github.com/joshuaclayton/blueprint-css.git ~/src/blueprint-css
+  $ $EDITOR settings.yml # update path to the directory the CSS files are in
+  $ ruby ~/src/blueprint-css/lib/compress.rb -f settings.yml -p kaizendo
+
+# Licensing and use
+
+The Blueprint CSS Framework is licensed according to the terms in the LICENSE
+file in the Blueprint CSS source package.
+
+For more information, see the Blueprint CSS Framework website.
+
+  [Home page](http://blueprintcss.org/)
+  [Source code](http://github.com/joshuaclayton/blueprint-css)

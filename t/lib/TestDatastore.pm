@@ -6,6 +6,7 @@ use FindBin qw/$Bin/;
 use aliased 'App::Kaizendo::Datastore';
 use aliased 'App::Kaizendo::Datastore::Project';
 use aliased 'App::Kaizendo::Datastore::Comment';
+use aliased 'App::Kaizendo::Datastore::Person';
 
 our @EXPORT = qw/getTestDatastore buildTestData/;
 
@@ -45,23 +46,42 @@ sub buildTestData {
     my ($store) = @_;
     my $s = $store->new_scope;
 
-    my $doc = Project->new(name => 'TestProject');
-    ok $doc;
+    my $author1 = Person->new( name => "Ron Goldman", access => 1 );
+    ok $author1, 'Register first author';
 
-    is scalar($doc->snapshots->flatten), 1, 'Has 1 snapshot';
+    my $author2 = Person->new( name => "Richard P. Gabriel", access => 1 );
+    ok $author2, 'Register second author';
 
+    my $doc = Project->new(name => 'IHE');
+    ok $doc, 'Create initial project';
+    
+    is scalar($doc->snapshots->flatten), 1, '..and check it has 1 snapshot';
+
+    ok $doc->title("Innovation Happens Elsewhere"), 'Set project title';
+
+    # Add snapshots with new sections
     my $latest_snapshot = $doc->latest_snapshot;
     my (@chapter_fns) = glob($Bin.'/data/IHE/ch*.html');
     ok scalar(@chapter_fns), 'There are some chapters in '."$Bin/data/IHE";
     for my $fn (@chapter_fns) {
-        my $fh;
+        my ($fh, $version);
         open($fh, '<', $fn) or die $!;
         my $data = do { local $/; <$fh> };
-        $latest_snapshot = $latest_snapshot->append_section( text => $data );
+        $latest_snapshot = $latest_snapshot->append_section(
+            content        => $data,
+            author         => $author1,
+            commit_message => "Add chapter from " . $fn,
+            tag            => "v0.0." . ++$version, #
+        );
     }
     $store->store($doc);
 
-    my $comment = Comment->new( project => $doc, text => 'A comment' );
+    # Set up comments
+    my $comment = Comment->new(
+        project => $doc,
+        content => 'This is a good book, believe me!',
+        author  => $author2,
+        );
     ok $comment;
 
     ok $store->store($comment);

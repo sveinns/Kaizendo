@@ -21,19 +21,22 @@ foreach my $uri (
     /;
     /_c
     /_user
-    /TestProject
-    /TestProject/;
-    /TestProject/_user
-    /TestProject/_c
-    /TestProject/1
-    /TestProject/1/;
-    /TestProject/1/_user
-    /TestProject/1/_c
+    /IHE
+    /IHE/;
+    /IHE/_user
+    /IHE/_c
+    /IHE/1
+    /IHE/1/;
+    /IHE/1/_user
+    /IHE/1/_c
     }
   )
 {
     returns_success($uri);
 }
+
+# The REST API spec that these tests are based on can be found here:
+# <http://spreadsheets.google.com/pub?key=tw0LE2wYspa8DyUaJVVwm_A>
 
 # User URL tests
 foreach my $test (

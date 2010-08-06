@@ -37,6 +37,7 @@ requires 'namespace::autoclean';
 requires 'Config::General';
 requires 'KiokuX::Model';
 requires 'KiokuDB::Backend::DBI';
+requires 'DateTime';
 requires 'aliased';
 
 recommends 'JSON::XS';
@@ -46,6 +47,7 @@ test_requires 'Test::More' => '0.88';
 author_requires 'DBIx::Class' => '0.08123';
 
 if ($Module::Install::AUTHOR) {
+    include 'File::Copy::Recursive';
     require DBIx::Class::Optional::Dependencies;
 
     my $deploy_deps = DBIx::Class::Optional::Dependencies->req_list_for ('deploy');
