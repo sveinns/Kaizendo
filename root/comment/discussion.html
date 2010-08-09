@@ -12,7 +12,7 @@ ol.discussion>li#c_>div.comment{[% INCLUDE comment/content.html title="Comment" 
 [% BLOCK new_discussion %]
 <ol class="discussion depth_[% depth %]">
     [% FOREACH this_comment = discussion_data %]
-	<li id="c_[% this_comment.id.substr(0,6) %]" class="comment">
+	<li id="[% this_comment.id %]" class="comment">
 		[% INCLUDE comment/content.html comment=this_comment %]
         [% IF this_comment.replies.size; %]
           [% INCLUDE new_discussion discussion_data=this_comment.replies depth=depth+1 %]
