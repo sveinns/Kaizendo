@@ -1,22 +1,23 @@
 /* Kaizendo screen/projection CSS */
 
 img.built_by {
-	float: right;
-	border: none;
+    float: right;
+    border: none;
 }
 
 img.kaizendo_logo {
-	border: none;
-	margin: 5px;
+    border: none;
+    margin: 5px;
 }
 
 #content {
-	background: #f4eed9;
-	min-height: 250px;
+    background: #f4eed9;
+    min-height: 250px;
+    text-rendering: optimizeLegibility;
 }
 
 #left_col, #right_col, body.container {
-	background: transparent !important;
+    background: transparent !important;
 }
 
 #help {
@@ -79,8 +80,8 @@ a.close {
 }
 
 #footer {
-	background: transparent !important;
-	color: #2b5229;
+    background: transparent !important;
+    color: #2b5229;
     text-align: center;
 }
 
@@ -90,11 +91,11 @@ a.github_link {
 }
 
 html {
-	background: #3d743a repeat-x url(/static/images/background.jpg);
+    background: #3d743a repeat-x url(/static/images/background.jpg);
 }
 
 p, h1, h2 {
-	padding: 5px;
+    padding: 5px;
 }
 
 .discussion p {
