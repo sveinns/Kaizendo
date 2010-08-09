@@ -61,6 +61,7 @@ This package includes code from projects that have their own licenses:
   [jQuery](http://jquery.com/)
   [JSON](http://json.org/)
   [Blueprint CSS Framework](http://blueprintcss.org/)
+  [Readability](http://lab.arc90.com/experiments/readability/)
 
 Please see the respective project websites for licensing information and
 the opportunity to download the newest source code.

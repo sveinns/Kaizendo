@@ -8,6 +8,9 @@ Content is from selected chapters of "Innovation Happens Elsewhere",
 found in full at www.dreamsongs.com (Licensed CC-BY-SA-2.0), and somewhat
 cleaned up.
 
+The content has been cleaned up using HTML tidy(1) and other tools that
+sveinns hasn't released yet. :-P
+
 # REST
 
 The REST data is a CSV file describing URLs, methods, expected content
