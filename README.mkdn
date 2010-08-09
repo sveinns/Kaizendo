@@ -35,15 +35,32 @@ Github repository.
 
 # TESTING
 
-Run script/kaizendo_server.pl to test the application.
+Test the application "online" by running the following commands:
+
+  perl Makefile.PL
+  make
+  make test
+  script/kaizendo_server.pl
+
+And then pointing your browser to the URL mentioned at the last step.
+
+Running the test suite creates a database that you can browse, so you have
+to run it at least once.
+
+# DEBUGGING
+
+Debugging can be turned on by running the tests as above, and then firing up
+the server as follows:
+
+  script/kaizendo_server.pl -d -r
 
 # OTHER SOFTWARE
 
 This package includes code from projects that have their own licenses:
 
-  jQuery
-  JSON
-  Blueprint CSS Framework
+  [jQuery](http://jquery.com/)
+  [JSON](http://json.org/)
+  [Blueprint CSS Framework](http://blueprintcss.org/)
 
 Please see the respective project websites for licensing information and
 the opportunity to download the newest source code.
