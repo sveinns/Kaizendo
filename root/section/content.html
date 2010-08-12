@@ -1,5 +1,6 @@
 [% WRAPPER common/index.html
-   title = "$section.project.name, Chapter $section.id"
+    title = "$section.project.name, Chapter $section.id";
+    USE AddID;
 %]
 <!-- Template: root/section/content.html -->
 
@@ -32,7 +33,7 @@
     </ul>
 </div><!-- End of left_col -->
 
-<div id="content">[% section.content %]</div>
+<div id="content">[% section.content %]</div><!-- End of content -->
 
 <div id="right_col">
     <div id="comments">[% INCLUDE 'comment/discussion.html' %]</div>
