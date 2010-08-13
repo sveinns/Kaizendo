@@ -33,7 +33,7 @@
     </ul>
 </div><!-- End of left_col -->
 
-<div id="content">[% section.content %]</div><!-- End of content -->
+<div id="content">[% section.content | add_ids %]</div><!-- End of content -->
 
 <div id="right_col">
     <div id="comments">[% INCLUDE 'comment/discussion.html' %]</div>

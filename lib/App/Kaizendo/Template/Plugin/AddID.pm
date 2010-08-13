@@ -3,17 +3,20 @@ use Moose;
 use MooseX::NonMoose;
 use namespace::autoclean;
 
-use Template::Plugin::Filter;
-BEGIN { extends qw( Template::Plugin::Filter ); }
-
 use HTML::Tree;
-use Digest::SHA1 qw(sha1_base64);
+use Digest::SHA1 qw(sha1_hex);
 
-use strict;
-use warnings;
+use Template::Plugin::Filter;
+extends qw( Moose::Object Template::Plugin::Filter );
 
-no Moose;
-__PACKAGE__->meta->make_immutable;
+sub BUILDARGS {
+    my ( $class, $c, @args ) = @_;
+
+    my $filter_args = { @args };
+
+	return { %$filter_args, context => $c, filter_args => $filter_args };
+}
+
 
 sub init {
     my $self = shift;
@@ -26,12 +29,12 @@ sub init {
 sub filter {
     my ($self, $text) = @_;
 
-    $text = add_ids($text);
+    $text = _add_ids($text);
 
     return $text;
 }
 
-sub add_ids {
+sub _add_ids {
     my $content = shift;
     my $content_sha1 = sha1_hex($content);
     $content = qq(<div id="_modified_content_root" class="$content_sha1">$content</div>); # Show that we have
@@ -86,7 +89,7 @@ document.
 
 =head1 SYNOPSIS
 
-  [% USE Kaizendo.AddID %]
+  [% USE AddID %]
 
   [% content | add_id %]
 
