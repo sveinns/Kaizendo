@@ -1,51 +1,52 @@
 package App::Kaizendo::Template::Plugin::AddID;
-use Moose;
-use MooseX::NonMoose;
-use namespace::autoclean;
 
 use HTML::Tree;
 use Digest::SHA1 qw(sha1_hex);
 
 use Template::Plugin::Filter;
-extends qw( Moose::Object Template::Plugin::Filter );
+use base qw( Template::Plugin::Filter );
 
-sub BUILDARGS {
-    my ( $class, $c, @args ) = @_;
+use warnings;
+use strict;
 
-    my $filter_args = { @args };
-
-	return { %$filter_args, context => $c, filter_args => $filter_args };
-}
-
+use Carp qw(verbose);
 
 sub init {
     my $self = shift;
 
+    $self->{ _DYNAMIC } = 1;
     $self->install_filter('add_ids');
 
     return $self;
-}
+};
 
 sub filter {
     my ($self, $text) = @_;
 
-    $text = _add_ids($text);
-
-    return $text;
+    return $self->_add_ids($text);
 }
 
 sub _add_ids {
+    my $self = shift;
     my $content = shift;
     my $content_sha1 = sha1_hex($content);
-    $content = qq(<div id="_modified_content_root" class="$content_sha1">$content</div>); # Show that we have
+
+    # FIXME: Stupid hack to show that we have a specific content
+    $content = qq(<div id="$content_sha1">$content</div>);
 
     my $tree = HTML::TreeBuilder->new();
+
     $tree->implicit_tags(0);
     $tree->implicit_body_p_tag(0);
     $tree->ignore_unknown(0);
     $tree->ignore_ignorable_whitespace(1);
     $tree->no_space_compacting(0);
     $tree->store_comments(1);
+    $tree->warn(1);
+    $tree->store_pis(1);
+    $tree->store_declarations(1);
+    $tree->ignore_text(0);
+    
 
     $tree->parse($content);
     $tree->eof();
@@ -53,7 +54,13 @@ sub _add_ids {
 
     my $id_counter = 0;
     _assign_id($guts, $id_counter);
-    return $guts->as_HTML("", "  ", {});
+
+    open my $f, ">", "/tmp/guts";
+    print $f $guts->as_HTML(undef, "  ", {});
+    close($f);
+
+    return $guts->as_HTML(undef, "  ", {});
+
 }
 
 
@@ -61,14 +68,14 @@ sub _assign_id {
     my $x = $_[0];
     my $counter = $_[1];
     my $pos;
-    $x->id('c_' . $counter++) unless defined $x->id;
+    $x->id('c_' . $_[1]++) unless defined $x->id;
     if( $x->content_list > 1) {
         foreach my $c ($x->content_list) {
             if (ref $c) {
-                _assign_id($c, $counter);
+                _assign_id($c, $_[1]);
             }
             else { 
-                my $s = HTML::Element->new('span', id => 'c_' . $counter++);
+                my $s = HTML::Element->new('span', id => 'c_' . $_[1]++);
                 $s->push_content($c); # Wrap content with a span element
                 $x->splice_content( $pos, 1, $s );
             }
