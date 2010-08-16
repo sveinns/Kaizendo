@@ -34,7 +34,7 @@ FIXME
 sub section : Chained('base') PathPart('') CaptureArgs(1) {
     my ( $self, $c, $section_no ) = @_;
     my $section = $c->stash->{project}->get_section_by_number($section_no)
-        or $c->detach('/error404');
+        or $c->detach('/notfound_404');
     $c->stash(section => $section);
 }
 

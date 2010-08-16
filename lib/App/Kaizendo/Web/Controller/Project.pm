@@ -23,7 +23,7 @@ FIXME
 sub section : Chained('base') PathPart('') CaptureArgs(1) {
     my ( $self, $c, $project_name ) = @_;
     my $project = $c->model('Projects')->get_project_by_name( $project_name )
-        or $c->detach('/error404');
+        or $c->detach('/notfound_404');
     $c->stash( project => $project->latest_snapshot );
 }
 
