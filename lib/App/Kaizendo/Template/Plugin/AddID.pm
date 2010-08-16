@@ -46,7 +46,6 @@ sub _add_ids {
     $tree->store_pis(1);
     $tree->store_declarations(1);
     $tree->ignore_text(0);
-    
 
     $tree->parse($content);
     $tree->eof();
@@ -54,10 +53,6 @@ sub _add_ids {
 
     my $id_counter = 0;
     _assign_id($guts, $id_counter);
-
-    open my $f, ">", "/tmp/guts";
-    print $f $guts->as_HTML(undef, "  ", {});
-    close($f);
 
     return $guts->as_HTML(undef, "  ", {});
 
@@ -67,17 +62,19 @@ sub _add_ids {
 sub _assign_id {
     my $x = $_[0];
     my $counter = $_[1];
-    my $pos;
-    $x->id('c_' . $_[1]++) unless defined $x->id;
-    if( $x->content_list > 1) {
+    my $pos = 0;
+
+    $x->id('c_' . $_[1]++) unless defined $x->id; # No ID? Add one.
+
+    if( $x->descendants > 0 ) {
         foreach my $c ($x->content_list) {
             if (ref $c) {
                 _assign_id($c, $_[1]);
             }
-            else { 
+            else {
                 my $s = HTML::Element->new('span', id => 'c_' . $_[1]++);
                 $s->push_content($c); # Wrap content with a span element
-                $x->splice_content( $pos, 1, $s );
+                $x->splice_content( $pos, 1, $s ); # Then replace original
             }
             $pos++;
         }
@@ -98,7 +95,7 @@ document.
 
   [% USE AddID %]
 
-  [% content | add_id %]
+  [% content | add_ids %]
 
 
 =head1 WHAT IT IS FOR
@@ -109,11 +106,11 @@ described at L<http://www.co-ment.org/wiki/AnnotationInternals>.
 The strategy is to traverse the content depth-first, adding unique IDs
 as we go:
 
-   - The content is wrapped with a <span> having the object
-     UUID of the content as id
+   - The full content is wrapped with a <span> having an object
+     UUID of the content as id (currently a SHA1 of the content)
    - Elements that don't have an ID get one
    - Elements with an ID keep the one they have
-   - Whitespace CDATA is stripped
+   - Ignorable whitespace CDATA is stripped
    - Content CDATA get a <span> with an ID around it
 
 
