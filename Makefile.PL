@@ -28,6 +28,7 @@ requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Action::REST';
 requires 'Catalyst::View::TT';
 requires 'Template::Plugin::JSON';
+requires 'HTML::TreeBuilder';
 requires 'Catalyst::Model::KiokuDB';
 requires 'Moose';
 requires 'MooseX::Types';
@@ -40,6 +41,7 @@ requires 'Config::General';
 requires 'KiokuX::Model';
 requires 'KiokuDB::Backend::DBI';
 requires 'DateTime';
+requires 'Digest::SHA1';
 requires 'aliased';
 
 recommends 'JSON::XS';
