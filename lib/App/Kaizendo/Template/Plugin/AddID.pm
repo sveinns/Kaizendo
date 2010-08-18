@@ -62,22 +62,30 @@ sub _add_ids {
 sub _assign_id {
     my $x = $_[0];
     my $counter = $_[1];
-    my $pos = 0;
+    my $pos = 0; my $id_added = 0;
 
-    $x->id('c_' . $_[1]++) unless defined $x->id; # No ID? Add one.
-
+    if (! defined $x->id) {
+        $x->id('s_' . $_[1]++); # No ID? Add one.
+        $id_added = 1;
+    }
+    
     if( $x->descendants > 0 ) {
         foreach my $c ($x->content_list) {
             if (ref $c) {
                 _assign_id($c, $_[1]);
             }
             else {
-                my $s = HTML::Element->new('span', id => 'c_' . $_[1]++);
+                my $s = HTML::Element->new('span', id => 's_' . $_[1]++);
                 $s->push_content($c); # Wrap content with a span element
                 $x->splice_content( $pos, 1, $s ); # Then replace original
             }
             $pos++;
         }
+    }
+    elsif( $x->content_list and ! $id_added ) { # No descendants, but content
+        my $s = HTML::Element->new('span', id => 's_' . $_[1]++);
+        $s->push_content($x->content_list); # Wrap content with a span element
+        $x->splice_content( 0, 1, $s ); # Then replace original
     }
 }
 
