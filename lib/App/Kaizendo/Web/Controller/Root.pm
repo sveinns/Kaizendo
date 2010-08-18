@@ -29,10 +29,10 @@ sub projects_GET { }
 
 sub default : Chained('base') PathPart('') Args() { # Capture all args
     my ( $self, $c ) = @_;
-    $c->detach('/error404');
+    $c->detach('/notfound_404');
 }
 
-sub error404 : Action {
+sub notfound_404 : Action {
     my ($self, $c) = @_;
     $c->response->body('Page not found');
     $c->response->status(404);

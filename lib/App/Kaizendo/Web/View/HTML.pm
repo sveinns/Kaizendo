@@ -4,7 +4,11 @@ use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::View::TT' }
 
-__PACKAGE__->config( TEMPLATE_EXTENSION => '.html', );
+__PACKAGE__->config({
+	render_die => 0,
+	TEMPLATE_EXTENSION => '.html',
+	PLUGIN_BASE => 'App::Kaizendo::Template::Plugin',
+});
 
 =head1 NAME
 

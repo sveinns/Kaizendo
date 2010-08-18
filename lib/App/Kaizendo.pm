@@ -19,6 +19,11 @@ App::Kaizendo - A tool for collaborative authoring of polyscopic documents
     script/kaizendo_server.pl
 
 
+=head1 STATUS
+
+This software is UNDER HEAVY DEVELOPMENT. Expect major changes!
+
+
 =head1 DESCRIPTION
 
 Kaizendo is a framework for discussing and improving texts that have

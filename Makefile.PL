@@ -32,6 +32,7 @@ requires 'Catalyst::Model::KiokuDB';
 requires 'Moose';
 requires 'MooseX::Types';
 requires 'MooseX::Types::LoadableClass';
+requires 'MooseX::NonMoose';
 requires 'Moose::Autobox' => '0.11';
 requires 'Method::Signatures::Simple';
 requires 'namespace::autoclean';
