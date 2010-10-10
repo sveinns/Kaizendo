@@ -28,7 +28,7 @@ requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Action::REST';
 requires 'Catalyst::View::TT';
 requires 'Template::Plugin::JSON';
-requires 'Catalyst::Model::KiokuDB';
+requires 'Catalyst::Model::KiokuDB' => '0.12';
 requires 'Moose';
 requires 'MooseX::Types';
 requires 'MooseX::Types::LoadableClass';
