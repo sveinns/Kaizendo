@@ -47,6 +47,11 @@ __PACKAGE__->config(
     'Model::Projects' => {
         dsn => "dbi:SQLite:dbname=" . __PACKAGE__->path_to('kiokudb.sqlite3'),
     },
+
+    # Set up DSN for the comments
+    'Model::Comments' => {
+        dsn => "dbi:SQLite:dbname=" . __PACKAGE__->path_to('kiokudb.sqlite3'),
+    },
 );
 
 # Start the application
