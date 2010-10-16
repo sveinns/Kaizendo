@@ -32,7 +32,17 @@
     </ul>
 </div><!-- End of left_col -->
 
-<div id="content">[% USE AddID; section.content | add_ids %]</div><!-- End of content -->
+<div id="content">
+    <div id="text_content">
+        [% USE AddID; section.content | add_ids %]
+    </div>
+    <div id="comment_form">
+        <form class="add_comment">
+            <input name="comment" />
+            <input type="submit" value="Add Comment" />
+        </form>
+    </div>
+</div><!-- End of content -->
 
 <div id="right_col">
     <div id="comments">[% INCLUDE 'comment/discussion.html' %]</div>
