@@ -82,13 +82,25 @@ $(document).ready(function(){
         // otherwise its a selection
         $('div#comment_form').show().children('form').unbind('submit').submit(function() {
             var location = createLocation(range);
-            var comment = createComment(location,this.comment.value);
+            var comment_data = {
+                subject     : this.subject.value,
+                content     : this.content.value,
+                location    : location
+            };
+            var comment = createComment(comment_data);
             $('div#comment_form').hide();
             this.reset();
             $('#text_content').generateCommentClone();
             return false;
         });
     });
+    // bind form submit (for comments)
+    $('#comments form').live('submit',
+        function(e) {
+            alert('who whooo');
+            e.preventDefault();
+        }
+    );
 });
 
 $.fn.getPath = function() {
@@ -249,11 +261,13 @@ function createLocation(range) {
     locations[location.id] = location;
     return location;
 }
-function createComment(location,commentText) {
+function createComment(comment_data) {
     var comment = {
         id          : new Date().getTime(),
-        location    : location,
-        comment     : commentText,
+        location    : comment_data.location,
+        subject     : comment_data.subject,
+        content     : comment_data.content,
+        in_reply_to : comment_data.parent
     };
     comments.push(comment);
 }
