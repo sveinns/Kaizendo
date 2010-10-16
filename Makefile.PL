@@ -28,7 +28,7 @@ requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Action::REST';
 requires 'Catalyst::View::TT';
 requires 'Template::Plugin::JSON';
-requires 'HTML::TreeBuilder';
+requires 'HTML::TreeBuilder';  # For AddID Template plugin
 requires 'Catalyst::Model::KiokuDB' => '0.12';
 requires 'Moose';
 requires 'MooseX::Types';

@@ -9,16 +9,17 @@
 %]
 
 [% BLOCK new_discussion %]
-<ol class="discussion depth_[% depth %]">
-  [% FOREACH this_comment = discussion %]
-	<li id="[% this_comment.id %]" class="comment">
-		[% INCLUDE comment/content.html comment=this_comment %]
-    [% IF this_comment.replies.size; %]
-      [% INCLUDE new_discussion discussion=this_comment.replies depth=depth+1 %]
-    [% END %]
-	</li>
-  [% END %]
+<ol class="discussion depth_1">
+    <li class="comment">
+        <p class="comment_title"></p>
+        <p class="comment_content"></p>
+        <form>
+            <input name="content" />
+            <input type="submit" value="Add Comment" />
+        </form>
+    </li>
 </ol>
+
 [% END %]
 
 <div class="[% discussion_id %]">
