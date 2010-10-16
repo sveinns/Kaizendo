@@ -10,16 +10,13 @@
 ol.discussion>li#c_>div.comment{[% INCLUDE comment/content.html title="Comment" content='Oh noes' %]} ol>li#c_>div.comment{[% INCLUDE comment/content.html title="Reply" content="I can haz cheezburger" %] -->
 
 [% BLOCK new_discussion %]
-<ol class="discussion depth_[% depth %]">
-    [% FOREACH this_comment = discussion_data %]
-	<li id="[% this_comment.id %]" class="comment">
-		[% INCLUDE comment/content.html comment=this_comment %]
-        [% IF this_comment.replies.size; %]
-          [% INCLUDE new_discussion discussion_data=this_comment.replies depth=depth+1 %]
-        [% END %]
-	</li>
-    [% END %]
+<ol class="discussion depth_1">
+    <li class="comment">
+        <p class="comment_title"></p>
+        <p class="comment_content"></p>
+    </li>
 </ol>
+
 [% END %]
 
 [% INCLUDE new_discussion discussion_data=discussion_data depth=depth %]

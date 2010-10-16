@@ -33,21 +33,21 @@ comments = [
         location    : locations.one,
         in_reply_to : null,
         subject     : 'This is racist',
-        comment     : 'expand that thinking!'
+        content     : 'expand that thinking!'
     },
     {
         id          : 'two',
         location    : locations.two,
         in_reply_to : null,
         subject     : 'This is wrong',
-        comment     : 'What lessons?'
+        content     : 'What lessons?'
     },
     {
         id          : 'three',
         location    : locations.tre,
         in_reply_to : null,
         subject     : 'This is making an assumption',
-        comment     : 'Not me!'
+        content     : 'Not me!'
     },
 ];
 classes = {
@@ -68,7 +68,15 @@ $(document).ready(function(){
         // Check if its a click
         if (range.startContainer == range.endContainer && range.startOffset == range.endOffset) {
             $('div#comment_form').hide();
-            displayComments(range);
+            var path = $(range.startContainer).getPath();
+            var cords = {
+                startPath   : path,
+                startOffset : range.startOffset,
+                endPath     : path,
+                endOffset   : range.endOffset,
+            };
+            var comments = getComments(cords);
+            displayComments(comments);
             return;
         }
         // otherwise its a selection
@@ -200,21 +208,19 @@ function getComments(cords) {
 }
 
 // This should be extended to handle ranges with different start and ends
-function displayComments(range) {
+function displayComments(comments) {
+    // Remove any previously selected text (blue)
     $('.selected').removeClass('selected');
-    var path = $(range.startContainer).getPath();
-    var cords = {
-        startPath   : path,
-        startOffset : range.startOffset,
-        endPath     : path,
-        endOffset   : range.endOffset,
-    };
-    var foundComments = getComments(cords);
-    $.each(foundComments,
+    // remove any comments on the side
+    $('#comments ol').children('li:first').siblings().remove();
+    $.each(comments,
         function(index,comment) {
             var class = comment.id;
             $('.'+class).addClass('selected');
-            alert(comment.comment);
+            var container = $('#comments ol').children('li:first').clone();
+            container.children('p.comment_title').html(comment.subject);
+            container.children('p.comment_content').html(comment.content);
+            $('#comments ol').children('li:first').after(container);
         }
     );
 }

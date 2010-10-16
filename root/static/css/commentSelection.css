@@ -66,3 +66,11 @@ div#comment_form {
     z-index: 1000;
     display: none;
 }
+/* comment stuff */
+div#comments ol {
+    position: fixed;
+    top: -20px;
+    left: 750px;
+    width: 200px;
+}
+
