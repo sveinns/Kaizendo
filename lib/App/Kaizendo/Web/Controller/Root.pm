@@ -34,7 +34,7 @@ sub default : Chained('base') PathPart('') Args() { # Capture all args
 
 sub error404 : Action {
     my ($self, $c) = @_;
-    $c->response->body('Page not found');
+    $c->response->body('Kaizen-d'oh: Page not found');
     $c->response->status(404);
 }
 
