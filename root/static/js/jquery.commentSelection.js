@@ -65,37 +65,33 @@ $(document).ready(function(){
     // bind Mouseup
     $('#text_content').bind("mouseup", function(){
         var range = $('#text_content').getRangeAt();
-        // Check if its a click
-        if (range.startContainer == range.endContainer && range.startOffset == range.endOffset) {
-            $('div#comment_form').hide();
-            var path = $(range.startContainer).getPath();
-            var cords = {
-                startPath   : path,
-                startOffset : range.startOffset,
-                endPath     : path,
-                endOffset   : range.endOffset,
-            };
-            var comments = getComments(cords);
-            displayComments(comments);
-            return;
+        // display comments
+        var comments = getComments(range);
+        displayComments(comments);
+        // its a selection
+        if (range.startContainer != range.endContainer || range.startOffset != range.endOffset) {
+            $('div#comment_form').show().children('form').unbind('submit').submit(
+                function() {
+                    var location = createLocation(range);
+                    var comment_data = {
+                        subject     : this.subject.value,
+                        content     : this.content.value,
+                        location    : location
+                    };
+                    var comment = createComment(comment_data);
+                    $('div#comment_form').hide();
+                    this.reset();
+                    $('#text_content').generateCommentClone();
+                    return false;
+                }
+            );
         }
-        // otherwise its a selection
-        $('div#comment_form').show().children('form').unbind('submit').submit(function() {
-            var location = createLocation(range);
-            var comment_data = {
-                subject     : this.subject.value,
-                content     : this.content.value,
-                location    : location
-            };
-            var comment = createComment(comment_data);
+        else {
             $('div#comment_form').hide();
-            this.reset();
-            $('#text_content').generateCommentClone();
-            return false;
-        });
+        }
     });
     // bind form submit (for comments)
-    $('#comments form').live('submit',
+    $('body').delegate('#comments form', 'submit',
         function(e) {
             alert('who whooo');
             e.preventDefault();
@@ -135,16 +131,13 @@ $.fn.generateCommentHTML = function() {
                 function(index,element) {
                     if(this.nodeType == 3)
                     {
-                        var path = $(this).getPath();
+                        var range = $.fn.range;
+                        range.startContainer = range.endContainer = element;
+                        var path = $(element).getPath();
                         $.each(this.nodeValue,
                             function(index,cha) {
-                                var cords = {
-                                    startPath   : path,
-                                    startOffset : index+1,
-                                    endPath     : path,
-                                    endOffset   : index+1,
-                                };
-                                var comments = getComments(cords);
+                                range.startOffset = range.endOffset = index+1;
+                                var comments = getComments(range, path);
                                 if(comments.length)
                                 {
                                     var classes = getClasses(comments);
@@ -187,32 +180,82 @@ function getClasses(comments) {
 }
 
 // This should be extended to handle ranges with different start and ends
-function getComments(cords) {
+function getComments(range,path) {
     var foundComments = [];
+    var start_path = path ? path : $(range.startContainer).getPath();
+    var end_path = path ? path : $(range.endContainer).getPath();
     $.each(comments,
         function(index,comment) {
             var location = comment.location;
-            if(cords.startPath == location.start_path) {
-                if(cords.startOffset > location.start_offset) {
-                    if(cords.endPath != location.end_path || cords.endOffset < location.end_offset) {
+            // so(me [example text] here
+            if(start_path == location.start_path) {
+                // some [ex(...
+                if(range.startOffset > location.start_offset) {
+                    if(location.start_path == location.end_path) {
+                        if(range.startOffset < location.end_offset) {
+                            // some [ex(ample text] here
+                            foundComments.push(comment);
+                        }
+                    }
+                    else {
+                        // some [ex(ample <b>text] here</b>
+                        foundComments.push(comment);
+                    }
+                }
+                // so(me [example text] here
+                else if(location.start_path == location.end_path) {
+                    if(end_path != location.end_path || range.endOffset > location.start_offset) {
+                        // so(me [example text] <b>he)re</b> || // so(me [examp)le text] here
                         foundComments.push(comment);
                     }
                 }
             }
-            else if(cords.endPath == location.end_path) {
-                if(cords.endOffset < location.end_offset) {
-                    foundComments.push(comment);
+            // <b>so(me</b> [example text] he)re
+            // so(me <b>[example</b> text] he)re
+            else if(end_path == location.end_path) {
+                // <b>some</b> [example text] here
+                if(location.start_path == location.end_path) {
+                    if(range.endOffset > location.start_offset) {
+                        // <b>so(me</b> [exam)ple text] here
+                        foundComments.push(comment);
+                    }
+                }
+                // some <b>[example</b> text] here
+                else if(start_path == location.end_path) {
+                    if(range.startOffset < location.end_offset) {
+                        // some <b>[example</b> te(xt] here
+                        foundComments.push(comment);
+                    }
                 }
             }
-            else if(location.child_paths.length) {
+            // some [<b>e(xa)mple</b> text] here
+            else if (location.child_paths.length) {
                 $.each(location.child_paths,
                     function(index,path) {
-                        if(cords.startPath == path || cords.endPath == path) {
+                        if(start_path == path || end_path == path) {
+                            // some [<b>e(xample</b> text] here || some [<b>exa)mple</b> text] here
                             foundComments.push(comment);
                             return;
                         }
                     }
                 );
+            }
+            // <b>so(me</b> [example text] <b>he)re</b>
+            else if(start_path != end_path) {
+                var allNodes = range.GetContainedNodes()[0];
+                if(allNodes.length > 2) {
+                    allNodes.shift();
+                    allNodes.pop();
+                    $.each(allNodes,
+                        function(index,node) {
+                            var node_path = $(node).getPath();
+                            if(node_path == location.start_path || node_path == location.end_path) {
+                                foundComments.push(comment);
+                                return;
+                            }
+                        }
+                    );
+                }
             }
         }
     );
