@@ -95,8 +95,15 @@ $(document).ready(function(){
         // display comments
         var comments = getComments(range);
         displayDiscussions(comments);
+        if(comments.length) {
+            $('div#comments').show();
+        }
+        else {
+            $('div#comments').hide();
+        }
         // its a selection
         if (range.startContainer != range.endContainer || range.startOffset != range.endOffset) {
+            $('div#comments').show();
             $('div#comments .discussions .add_comment').show().children('form').unbind('submit').submit(
                 function() {
                     var location = createLocation(range);

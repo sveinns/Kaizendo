@@ -68,6 +68,7 @@ div#comments {
     width: 100%;
     z-index: 1000;
     background-color: #eee;
+    display: none;
 }
 div#comments .template {
     display: none;
@@ -95,13 +96,15 @@ div#comments .discussions,
 div#comments .comments {
     height: 200px;
 }
+div#comments textarea {
+    height: 50px;
+}
 div#comments .discussions {
     width: 50%;
     left: 0;
     border-right: 1px solid #777;
 }
 div#comments .discussions .add_comment {
-    
     display: none;
 }
 div#comments .discussion.selected {
