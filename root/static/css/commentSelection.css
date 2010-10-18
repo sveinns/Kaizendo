@@ -109,7 +109,7 @@ div#comments .discussion.selected .subject {
     color: #fff !important;
 }
 div#comments .discussion .subject {
-    background-color: #aaa;
+    background-color: #ddd;
     border-top: 1px solid #999;
     padding-left: 10px;
 }
