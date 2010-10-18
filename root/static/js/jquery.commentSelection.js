@@ -97,24 +97,29 @@ $(document).ready(function(){
         displayDiscussions(comments);
         // its a selection
         if (range.startContainer != range.endContainer || range.startOffset != range.endOffset) {
-            $('div#comment_form').show().children('form').unbind('submit').submit(
+            $('div#comments .discussions .add_comment').show().children('form').unbind('submit').submit(
                 function() {
                     var location = createLocation(range);
                     var comment_data = {
+                        author      : this.author.value,
                         subject     : this.subject.value,
                         content     : this.content.value,
                         location    : location
                     };
                     var comment = createComment(comment_data);
-                    $('div#comment_form').hide();
                     this.reset();
-                    $('#text_content').generateCommentClone();
+                    $(this).parent('.add_comment').hide();
+                    setTimeout(
+                        function() {
+                            $('#text_content').generateCommentClone();
+                        },
+                    0);
                     return false;
                 }
             );
         }
         else {
-            $('div#comment_form').hide();
+            $('div#comments .discussions .add_comment').hide();
         }
     });
     // bind discussion
@@ -136,7 +141,7 @@ $(document).ready(function(){
         }
     );
     // bind form submit (for comments)
-    $('body').delegate('#comments form', 'submit',
+    $('body').delegate('#comments_form', 'submit',
         function(e) {
             alert('who whooo');
             e.preventDefault();
@@ -341,7 +346,7 @@ function getComments(range,path) {
 }
 function displayDiscussions(comments) {
     var template = $('#comments .discussions').children('.template');
-    template.siblings().remove();
+    template.siblings('.discussion').remove();
     clearComments();
     $.each(comments,
         function(index,comment) {
@@ -414,6 +419,7 @@ function createComment(comment_data) {
     var comment = {
         id          : new Date().getTime(),
         location    : comment_data.location,
+        author      : comment_data.author,
         subject     : comment_data.subject,
         content     : comment_data.content,
         in_reply_to : comment_data.parent

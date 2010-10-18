@@ -100,6 +100,10 @@ div#comments .discussions {
     left: 0;
     border-right: 1px solid #777;
 }
+div#comments .discussions .add_comment {
+    
+    display: none;
+}
 div#comments .discussion.selected {
     background-color: #3879D9 !important;
     color: #fff !important;
@@ -108,12 +112,12 @@ div#comments .discussion.selected .subject {
     background-color: #1553AF;
     color: #fff !important;
 }
-div#comments .discussion .subject {
+div#comments .discussions .subject {
     background-color: #ddd;
     border-top: 1px solid #999;
     padding-left: 10px;
 }
-div#comments .discussion .content {
+div#comments .discussions .content {
     padding-left: 10px;
     font-size: 0.9em;
 }

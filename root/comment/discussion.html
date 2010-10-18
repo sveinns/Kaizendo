@@ -41,6 +41,15 @@ ol.discussion>li#c_>div.comment{[% INCLUDE comment/content.html title="Comment" 
                 <div class="subject"></div>
                 <div class="content"></div>
             </div>
+            <div class="add_comment">
+                <div class="subject">Start new discussion</div>
+                <form class="content">
+                    <label>author:</label><input name="author" />
+                    <label>subject:</label><input name="subject" />
+                    <label>content:</label><input name="content" />
+                    <input type="submit" value="Add Comment" />
+                </form>
+            </div>
         </div>
         <div class="comments">
             <div class="template comment">
