@@ -32,20 +32,47 @@ comments = [
         id          : 'one',
         location    : locations.one,
         in_reply_to : null,
-        subject     : 'This is racist',
-        content     : 'expand that thinking!'
+        author      : 'Ben Cawkwell',
+        subject     : 'Need to be more explicit about what expansive thinking is',
+        content     : 'It is not obvious for most people what contenxt youare referring to the expansive thinking of the late 1990s, this is especially true given that most readers of this book will not be from a technical background.',
+        comments    : [
+            {
+                author  : 'Tom Jones',
+                content : 'I concur, I was sex bombing it in the early 1980s',
+                comments: [
+                    {
+                        author  : 'Kathrine',
+                        content : "You pervert, not with me you weren't"
+                    }
+                ]
+            },
+            {
+                author  : 'Dick Harry',
+                content : 'Perhaps change the text so that effects of expansive thinking were present in the 1980s.'
+            }
+        ]
     },
     {
-        id          : 'two',
+        id          : 'twoA',
         location    : locations.two,
         in_reply_to : null,
-        subject     : 'This is wrong',
-        content     : 'What lessons?'
+        author      : 'sjn',
+        subject     : 'These dates are wrong',
+        content     : 'The epansive thinking really started in the late 1980s, it was just later that the technology became available to implement many of the features. The lesssons were learned before the turn of the millenium.'
+    },
+    {
+        id          : 'twoB',
+        location    : locations.two,
+        in_reply_to : null,
+        author      : 'Bob Builder',
+        subject     : 'Is this the correct way to write 1900s and 2000s?',
+        content     : "I thought it was normal to refer to 1900s, with only the decade and an apostrophe, like 90's. For dates after the millenium, I would assume you still keep the apostrophe, so it would be like 2000's. I am not a writer so correct me if I am wrong."
     },
     {
         id          : 'three',
         location    : locations.tre,
         in_reply_to : null,
+        author      : 'sloath',  
         subject     : 'This is making an assumption',
         content     : 'Not me!'
     },
@@ -67,7 +94,7 @@ $(document).ready(function(){
         var range = $('#text_content').getRangeAt();
         // display comments
         var comments = getComments(range);
-        displayComments(comments);
+        displayDiscussions(comments);
         // its a selection
         if (range.startContainer != range.endContainer || range.startOffset != range.endOffset) {
             $('div#comment_form').show().children('form').unbind('submit').submit(
@@ -90,6 +117,24 @@ $(document).ready(function(){
             $('div#comment_form').hide();
         }
     });
+    // bind discussion
+    $('body').delegate('#comments .discussion', 'click',
+        function(e) {
+            var comment_id = $(this).data('comment_id');
+            var comment;
+            $.each(comments,
+                function(index,c) {
+                    if(c.id == comment_id) {
+                        comment = c;
+                        return;
+                    }
+                }
+            );
+            $(this).addClass('selected').siblings().removeClass('selected');
+            displayComments(comment);
+            e.preventDefault();
+        }
+    );
     // bind form submit (for comments)
     $('body').delegate('#comments form', 'submit',
         function(e) {
@@ -110,6 +155,31 @@ $.fn.getPath = function() {
     var prepath = $('#text_content').getXPath();
     xpath = xpath.replace(prepath,'');
     return xpath+':['+this.nodeIndex()+']';
+}
+
+$.fn.getContainedPaths = function() {
+    var paths = [];
+    var _this = this[0];
+    if(_this.nodeType) {
+        if(_this.nodeType == 3) {
+            paths.push($(_this).getPath());
+        }
+        else if(_this.childNodes && _this.childNodes.length) {
+            $.each(_this.childNodes,
+                function(index,node) {
+                    paths = paths.concat($(node).getContainedPaths());
+                }
+            );
+        }
+    }
+    else if(_this.length) {
+        $.each(_this,
+            function(index,node) {
+                paths = paths.concat($(node).getContainedPaths());
+            }
+        );
+    }
+    return paths;
 }
 
 jQuery.fn.nodeIndex = function() {
@@ -242,17 +312,25 @@ function getComments(range,path) {
             }
             // <b>so(me</b> [example text] <b>he)re</b>
             else if(start_path != end_path) {
-                var allNodes = range.GetContainedNodes()[0];
-                if(allNodes.length > 2) {
-                    allNodes.shift();
-                    allNodes.pop();
-                    $.each(allNodes,
-                        function(index,node) {
-                            var node_path = $(node).getPath();
-                            if(node_path == location.start_path || node_path == location.end_path) {
-                                foundComments.push(comment);
-                                return;
-                            }
+                var nodeLists = range.GetContainedNodes();
+                if(nodeLists.length > 2) {
+                    nodeLists.shift();
+                    nodeLists.pop();
+                    $.each(nodeLists,
+                        function(index,nodeList) {
+                            $.each(nodeList,
+                                function(index,node) {
+                                    var node_paths = $(node).getContainedPaths();
+                                    $.each(node_paths,
+                                        function(index,node_path) {
+                                            if(node_path == location.start_path || node_path == location.end_path) {
+                                                foundComments.push(comment);
+                                                return;
+                                            }
+                                        }
+                                    );
+                                }
+                            );
                         }
                     );
                 }
@@ -261,23 +339,51 @@ function getComments(range,path) {
     );
     return foundComments;
 }
-
-// This should be extended to handle ranges with different start and ends
-function displayComments(comments) {
-    // Remove any previously selected text (blue)
-    $('.selected').removeClass('selected');
-    // remove any comments on the side
-    $('#comments ol').children('li:first').siblings().remove();
+function displayDiscussions(comments) {
+    var template = $('#comments .discussions').children('.template');
+    template.siblings().remove();
+    clearComments();
     $.each(comments,
         function(index,comment) {
-            var class = comment.id;
-            $('.'+class).addClass('selected');
-            var container = $('#comments ol').children('li:first').clone();
-            container.children('p.comment_title').html(comment.subject);
-            container.children('p.comment_content').html(comment.content);
-            $('#comments ol').children('li:first').after(container);
+            if(comment.subject) {
+                var html = template.clone();
+                html.removeClass('template').data('comment_id',comment.id);
+                html.children('.subject').html(comment.subject);
+                html.children('.content').html(comment.content);
+                template.before(html);
+            }
         }
     );
+}
+function clearComments() {
+    // Remove any previously selected text (blue) and highlight the relevent text
+    $('.clone .selected').removeClass('selected');
+    var template = $('#comments .comments').children('.template');
+    template.siblings().remove();
+}
+function displayComments(comment) {
+    clearComments();
+    $('.'+comment.id).addClass('selected');
+    var html = createCommentHTML(comment);
+    var template = $('#comments .comments').children('.template');
+    template.after(html);
+}
+function createCommentHTML(comment) {
+    // get the comment template
+    var template = $('#comments .comments').children('.template');
+    var html = template.clone();
+    html.removeClass('template');
+    html.children('.author').html(comment.author);
+    html.children('.content').html(comment.content);
+    if(comment.comments) {
+        $.each(comment.comments,
+            function(index,c) {
+                var childHTML = createCommentHTML(c);
+                html.append(childHTML);
+            }
+        );
+    }
+    return html;
 }
 function createLocation(range) {
     var nodes = [];

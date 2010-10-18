@@ -20,7 +20,33 @@ ol.discussion>li#c_>div.comment{[% INCLUDE comment/content.html title="Comment" 
         </form>
     </li>
 </ol>
+    <div id="comment_form">
+        <form class="add_comment">
+            <input name="subject" />
+            <input name="content" />
+            <input type="submit" value="Add Comment" />
+        </form>
+    </div>
 
 [% END %]
 
-[% INCLUDE new_discussion discussion_data=discussion_data depth=depth %]
+[% #INCLUDE new_discussion discussion_data=discussion_data depth=depth %]
+
+
+<div id="comments">
+    <div class="header">There are <span class="subject_count"></span> discussions:</div>
+    <div class="container">
+        <div class="discussions">
+            <div class="template discussion">
+                <div class="subject"></div>
+                <div class="content"></div>
+            </div>
+        </div>
+        <div class="comments">
+            <div class="template comment">
+                <div class="author"></div>
+                <div class="content"></div>
+            </div>
+        </div>
+    </div>
+</div>

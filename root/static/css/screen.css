@@ -46,7 +46,7 @@ ol.discussion {
 }
 
 .comment {
-    background: #f5f57b;
+    /* background: #f5f57b; */
 }
 
 .comment > p.comment_title {
