@@ -34,7 +34,15 @@ comments = [
         in_reply_to : null,
         author      : 'Ben Cawkwell',
         subject     : 'Need to be more explicit about what expansive thinking is',
-        content     : 'It is not obvious for most people what contenxt youare referring to the expansive thinking of the late 1990s, this is especially true given that most readers of this book will not be from a technical background.',
+        content     : 'It is not obvious for most people what contenxt youare referring to the expansive thinking of the late 1990s, this is especially true given that most readers of this book will not be from a technical background.'
+    },
+    {
+        id          : 'twoA',
+        location    : locations.two,
+        in_reply_to : null,
+        author      : 'sjn',
+        subject     : 'These dates are wrong',
+        content     : 'The epansive thinking really started in the late 1980s, it was just later that the technology became available to implement many of the features. The lesssons were learned before the turn of the millenium.',
         comments    : [
             {
                 author  : 'Tom Jones',
@@ -51,14 +59,6 @@ comments = [
                 content : 'Perhaps change the text so that effects of expansive thinking were present in the 1980s.'
             }
         ]
-    },
-    {
-        id          : 'twoA',
-        location    : locations.two,
-        in_reply_to : null,
-        author      : 'sjn',
-        subject     : 'These dates are wrong',
-        content     : 'The epansive thinking really started in the late 1980s, it was just later that the technology became available to implement many of the features. The lesssons were learned before the turn of the millenium.'
     },
     {
         id          : 'twoB',
