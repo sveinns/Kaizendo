@@ -115,7 +115,7 @@ $(document).ready(function(){
                     };
                     var comment = createComment(comment_data);
                     this.reset();
-                    $(this).parent('.add_comment').hide();
+                    $('div#comments').hide();
                     setTimeout(
                         function() {
                             $('#text_content').generateCommentClone();
