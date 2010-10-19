@@ -36,17 +36,11 @@
     <div id="text_content">
         [% USE AddID; section.content | add_ids %]
     </div>
-    <div id="comment_form">
-        <form class="add_comment">
-            <input name="subject" />
-            <input name="content" />
-            <input type="submit" value="Add Comment" />
-        </form>
-    </div>
+    [% INCLUDE 'comment/discussion.html' %]
 </div><!-- End of content -->
 
 <div id="right_col">
-    <div id="comments">[% INCLUDE 'comment/discussion.html' %]</div>
+    
 </div><!-- End of right_col -->
 
 <!-- End of template: root/section/content.html -->

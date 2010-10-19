@@ -19,9 +19,42 @@
         </form>
     </li>
 </ol>
+    <div id="comment_form">
+        <form class="add_comment">
+            <input name="subject" />
+            <input name="content" />
+            <input type="submit" value="Add Comment" />
+        </form>
+    </div>
 
 [% END %]
 
-<div class="[% discussion_id %]">
-[% INCLUDE new_discussion discussion=discussion depth=depth %]
+[% #INCLUDE new_discussion discussion_data=discussion_data depth=depth %]
+
+
+<div id="comments">
+    <div class="header">There are <span class="subject_count"></span> discussions:</div>
+    <div class="container">
+        <div class="discussions">
+            <div class="template discussion">
+                <div class="subject"></div>
+                <div class="content"></div>
+            </div>
+            <div class="add_comment">
+                <div class="subject">Start new discussion</div>
+                <form class="content">
+                    <label>author:</label><input name="author" />
+                    <label>subject:</label><input name="subject" />
+                    <label>content:</label><textarea name="content"></textarea>
+                    <input type="submit" value="Add Comment" />
+                </form>
+            </div>
+        </div>
+        <div class="comments">
+            <div class="template comment">
+                <div class="author"></div>
+                <div class="content"></div>
+            </div>
+        </div>
+    </div>
 </div>

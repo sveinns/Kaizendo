@@ -1,3 +1,4 @@
+/* text highlighting */
 .single_comment,
 .few_comments,
 .some_comments,
@@ -42,7 +43,7 @@
 .selected.hot_topic {
     background-color: #f00;
 }
-/* End highlighting */
+/* Text content */
 #content {
     position: relative;
     z-index: 0;
@@ -58,6 +59,87 @@
     z-index: 50;
     visibility: hidden;
 }
+/* comment display */
+div#comments {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #eee;
+    display: none;
+}
+div#comments .template {
+    display: none;
+}
+div#comments .header {
+    background-color: #ccc;
+    border-top: 1px solid #777;
+    padding: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+div#comments .container {
+    position: relative;
+    width: 100%;
+}
+div#comments .discussions,
+div#comments .comments {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    overflow-y: scroll;
+}
+div#comments .container,
+div#comments .discussions,
+div#comments .comments {
+    height: 200px;
+}
+div#comments textarea {
+    height: 50px;
+}
+div#comments .discussions {
+    width: 50%;
+    left: 0;
+    border-right: 1px solid #777;
+}
+div#comments .discussions .add_comment {
+    display: none;
+}
+div#comments .discussion.selected {
+    background-color: #3879D9 !important;
+    color: #fff !important;
+}
+div#comments .discussion.selected .subject {
+    background-color: #1553AF;
+    color: #fff !important;
+}
+div#comments .discussions .subject {
+    background-color: #ddd;
+    border-top: 1px solid #999;
+    padding-left: 10px;
+}
+div#comments .discussions .content {
+    padding-left: 10px;
+    font-size: 0.9em;
+}
+div#comments .comments {
+    width: 50%;
+    left: 50%
+}
+div#comments .comment {
+    margin: 5px;
+    padding: 5px;
+    background-color: #f5f57b;
+}
+div#comments .comment .author {
+    background-color: #f5f462;
+    font-weight: bold;
+}
+
+
+
 div#comment_form {
     position: fixed;
     bottom: 0;
@@ -69,7 +151,7 @@ div#comment_form {
 /* comment stuff */
 div#comments ol {
     position: fixed;
-    top: -80px;
+    top: -82px;
     left: 750px;
     width: 200px;
 }

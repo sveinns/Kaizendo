@@ -32,20 +32,47 @@ comments = [
         id          : 'one',
         location    : locations.one,
         in_reply_to : null,
-        subject     : 'This is racist',
-        content     : 'expand that thinking!'
+        author      : 'Ben Cawkwell',
+        subject     : 'Need to be more explicit about what expansive thinking is',
+        content     : 'It is not obvious for most people what contenxt youare referring to the expansive thinking of the late 1990s, this is especially true given that most readers of this book will not be from a technical background.'
     },
     {
-        id          : 'two',
+        id          : 'twoA',
         location    : locations.two,
         in_reply_to : null,
-        subject     : 'This is wrong',
-        content     : 'What lessons?'
+        author      : 'sjn',
+        subject     : 'These dates are wrong',
+        content     : 'The epansive thinking really started in the late 1980s, it was just later that the technology became available to implement many of the features. The lesssons were learned before the turn of the millenium.',
+        comments    : [
+            {
+                author  : 'Tom Jones',
+                content : 'I concur, I was sex bombing it in the early 1980s',
+                comments: [
+                    {
+                        author  : 'Kathrine',
+                        content : "You pervert, not with me you weren't"
+                    }
+                ]
+            },
+            {
+                author  : 'Dick Harry',
+                content : 'Perhaps change the text so that effects of expansive thinking were present in the 1980s.'
+            }
+        ]
+    },
+    {
+        id          : 'twoB',
+        location    : locations.two,
+        in_reply_to : null,
+        author      : 'Bob Builder',
+        subject     : 'Is this the correct way to write 1900s and 2000s?',
+        content     : "I thought it was normal to refer to 1900s, with only the decade and an apostrophe, like 90's. For dates after the millenium, I would assume you still keep the apostrophe, so it would be like 2000's. I am not a writer so correct me if I am wrong."
     },
     {
         id          : 'three',
         location    : locations.tre,
         in_reply_to : null,
+        author      : 'sloath',  
         subject     : 'This is making an assumption',
         content     : 'Not me!'
     },
@@ -65,37 +92,63 @@ $(document).ready(function(){
     // bind Mouseup
     $('#text_content').bind("mouseup", function(){
         var range = $('#text_content').getRangeAt();
-        // Check if its a click
-        if (range.startContainer == range.endContainer && range.startOffset == range.endOffset) {
-            $('div#comment_form').hide();
-            var path = $(range.startContainer).getPath();
-            var cords = {
-                startPath   : path,
-                startOffset : range.startOffset,
-                endPath     : path,
-                endOffset   : range.endOffset,
-            };
-            var comments = getComments(cords);
-            displayComments(comments);
-            return;
+        // display comments
+        var comments = getComments(range);
+        displayDiscussions(comments);
+        if(comments.length) {
+            $('div#comments').show();
         }
-        // otherwise its a selection
-        $('div#comment_form').show().children('form').unbind('submit').submit(function() {
-            var location = createLocation(range);
-            var comment_data = {
-                subject     : this.subject.value,
-                content     : this.content.value,
-                location    : location
-            };
-            var comment = createComment(comment_data);
-            $('div#comment_form').hide();
-            this.reset();
-            $('#text_content').generateCommentClone();
-            return false;
-        });
+        else {
+            $('div#comments').hide();
+        }
+        // its a selection
+        if (range.startContainer != range.endContainer || range.startOffset != range.endOffset) {
+            $('div#comments').show();
+            $('div#comments .discussions .add_comment').show().children('form').unbind('submit').submit(
+                function() {
+                    var location = createLocation(range);
+                    var comment_data = {
+                        author      : this.author.value,
+                        subject     : this.subject.value,
+                        content     : this.content.value,
+                        location    : location
+                    };
+                    var comment = createComment(comment_data);
+                    this.reset();
+                    $(this).parent('.add_comment').hide();
+                    setTimeout(
+                        function() {
+                            $('#text_content').generateCommentClone();
+                        },
+                    0);
+                    return false;
+                }
+            );
+        }
+        else {
+            $('div#comments .discussions .add_comment').hide();
+        }
     });
+    // bind discussion
+    $('body').delegate('#comments .discussion', 'click',
+        function(e) {
+            var comment_id = $(this).data('comment_id');
+            var comment;
+            $.each(comments,
+                function(index,c) {
+                    if(c.id == comment_id) {
+                        comment = c;
+                        return;
+                    }
+                }
+            );
+            $(this).addClass('selected').siblings().removeClass('selected');
+            displayComments(comment);
+            e.preventDefault();
+        }
+    );
     // bind form submit (for comments)
-    $('#comments form').live('submit',
+    $('body').delegate('#comments_form', 'submit',
         function(e) {
             alert('who whooo');
             e.preventDefault();
@@ -114,6 +167,31 @@ $.fn.getPath = function() {
     var prepath = $('#text_content').getXPath();
     xpath = xpath.replace(prepath,'');
     return xpath+':['+this.nodeIndex()+']';
+}
+
+$.fn.getContainedPaths = function() {
+    var paths = [];
+    var _this = this[0];
+    if(_this.nodeType) {
+        if(_this.nodeType == 3) {
+            paths.push($(_this).getPath());
+        }
+        else if(_this.childNodes && _this.childNodes.length) {
+            $.each(_this.childNodes,
+                function(index,node) {
+                    paths = paths.concat($(node).getContainedPaths());
+                }
+            );
+        }
+    }
+    else if(_this.length) {
+        $.each(_this,
+            function(index,node) {
+                paths = paths.concat($(node).getContainedPaths());
+            }
+        );
+    }
+    return paths;
 }
 
 jQuery.fn.nodeIndex = function() {
@@ -135,16 +213,13 @@ $.fn.generateCommentHTML = function() {
                 function(index,element) {
                     if(this.nodeType == 3)
                     {
-                        var path = $(this).getPath();
+                        var range = $.fn.range;
+                        range.startContainer = range.endContainer = element;
+                        var path = $(element).getPath();
                         $.each(this.nodeValue,
                             function(index,cha) {
-                                var cords = {
-                                    startPath   : path,
-                                    startOffset : index+1,
-                                    endPath     : path,
-                                    endOffset   : index+1,
-                                };
-                                var comments = getComments(cords);
+                                range.startOffset = range.endOffset = index+1;
+                                var comments = getComments(range, path);
                                 if(comments.length)
                                 {
                                     var classes = getClasses(comments);
@@ -187,54 +262,140 @@ function getClasses(comments) {
 }
 
 // This should be extended to handle ranges with different start and ends
-function getComments(cords) {
+function getComments(range,path) {
     var foundComments = [];
+    var start_path = path ? path : $(range.startContainer).getPath();
+    var end_path = path ? path : $(range.endContainer).getPath();
     $.each(comments,
         function(index,comment) {
             var location = comment.location;
-            if(cords.startPath == location.start_path) {
-                if(cords.startOffset > location.start_offset) {
-                    if(cords.endPath != location.end_path || cords.endOffset < location.end_offset) {
+            // so(me [example text] here
+            if(start_path == location.start_path) {
+                // some [ex(...
+                if(range.startOffset > location.start_offset) {
+                    if(location.start_path == location.end_path) {
+                        if(range.startOffset < location.end_offset) {
+                            // some [ex(ample text] here
+                            foundComments.push(comment);
+                        }
+                    }
+                    else {
+                        // some [ex(ample <b>text] here</b>
+                        foundComments.push(comment);
+                    }
+                }
+                // so(me [example text] here
+                else if(location.start_path == location.end_path) {
+                    if(end_path != location.end_path || range.endOffset > location.start_offset) {
+                        // so(me [example text] <b>he)re</b> || // so(me [examp)le text] here
                         foundComments.push(comment);
                     }
                 }
             }
-            else if(cords.endPath == location.end_path) {
-                if(cords.endOffset < location.end_offset) {
-                    foundComments.push(comment);
+            // <b>so(me</b> [example text] he)re
+            // so(me <b>[example</b> text] he)re
+            else if(end_path == location.end_path) {
+                // <b>some</b> [example text] here
+                if(location.start_path == location.end_path) {
+                    if(range.endOffset > location.start_offset) {
+                        // <b>so(me</b> [exam)ple text] here
+                        foundComments.push(comment);
+                    }
+                }
+                // some <b>[example</b> text] here
+                else if(start_path == location.end_path) {
+                    if(range.startOffset < location.end_offset) {
+                        // some <b>[example</b> te(xt] here
+                        foundComments.push(comment);
+                    }
                 }
             }
-            else if(location.child_paths.length) {
+            // some [<b>e(xa)mple</b> text] here
+            else if (location.child_paths.length) {
                 $.each(location.child_paths,
                     function(index,path) {
-                        if(cords.startPath == path || cords.endPath == path) {
+                        if(start_path == path || end_path == path) {
+                            // some [<b>e(xample</b> text] here || some [<b>exa)mple</b> text] here
                             foundComments.push(comment);
                             return;
                         }
                     }
                 );
             }
+            // <b>so(me</b> [example text] <b>he)re</b>
+            else if(start_path != end_path) {
+                var nodeLists = range.GetContainedNodes();
+                if(nodeLists.length > 2) {
+                    nodeLists.shift();
+                    nodeLists.pop();
+                    $.each(nodeLists,
+                        function(index,nodeList) {
+                            $.each(nodeList,
+                                function(index,node) {
+                                    var node_paths = $(node).getContainedPaths();
+                                    $.each(node_paths,
+                                        function(index,node_path) {
+                                            if(node_path == location.start_path || node_path == location.end_path) {
+                                                foundComments.push(comment);
+                                                return;
+                                            }
+                                        }
+                                    );
+                                }
+                            );
+                        }
+                    );
+                }
+            }
         }
     );
     return foundComments;
 }
-
-// This should be extended to handle ranges with different start and ends
-function displayComments(comments) {
-    // Remove any previously selected text (blue)
-    $('.selected').removeClass('selected');
-    // remove any comments on the side
-    $('#comments ol').children('li:first').siblings().remove();
+function displayDiscussions(comments) {
+    var template = $('#comments .discussions').children('.template');
+    template.siblings('.discussion').remove();
+    clearComments();
     $.each(comments,
         function(index,comment) {
-            var class = comment.id;
-            $('.'+class).addClass('selected');
-            var container = $('#comments ol').children('li:first').clone();
-            container.children('p.comment_title').html(comment.subject);
-            container.children('p.comment_content').html(comment.content);
-            $('#comments ol').children('li:first').after(container);
+            if(comment.subject) {
+                var html = template.clone();
+                html.removeClass('template').data('comment_id',comment.id);
+                html.children('.subject').html(comment.subject);
+                html.children('.content').html(comment.content);
+                template.before(html);
+            }
         }
     );
+}
+function clearComments() {
+    // Remove any previously selected text (blue) and highlight the relevent text
+    $('.clone .selected').removeClass('selected');
+    var template = $('#comments .comments').children('.template');
+    template.siblings().remove();
+}
+function displayComments(comment) {
+    clearComments();
+    $('.'+comment.id).addClass('selected');
+    var html = createCommentHTML(comment);
+    var template = $('#comments .comments').children('.template');
+    template.after(html);
+}
+function createCommentHTML(comment) {
+    // get the comment template
+    var template = $('#comments .comments').children('.template');
+    var html = template.clone();
+    html.removeClass('template');
+    html.children('.author').html(comment.author);
+    html.children('.content').html(comment.content);
+    if(comment.comments) {
+        $.each(comment.comments,
+            function(index,c) {
+                var childHTML = createCommentHTML(c);
+                html.append(childHTML);
+            }
+        );
+    }
+    return html;
 }
 function createLocation(range) {
     var nodes = [];
@@ -265,6 +426,7 @@ function createComment(comment_data) {
     var comment = {
         id          : new Date().getTime(),
         location    : comment_data.location,
+        author      : comment_data.author,
         subject     : comment_data.subject,
         content     : comment_data.content,
         in_reply_to : comment_data.parent
