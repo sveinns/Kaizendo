@@ -115,7 +115,7 @@ $(document).ready(function(){
                     };
                     var comment = createComment(comment_data);
                     this.reset();
-                    $(this).parent('.add_comment').hide();
+                    $('div#comments').hide();
                     setTimeout(
                         function() {
                             $('#text_content').generateCommentClone();
@@ -366,6 +366,9 @@ function displayDiscussions(comments) {
             }
         }
     );
+    if(comments.length) {
+        template.siblings('.discussion:first').click();
+    }
 }
 function clearComments() {
     // Remove any previously selected text (blue) and highlight the relevent text
