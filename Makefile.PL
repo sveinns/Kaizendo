@@ -25,7 +25,7 @@ requires 'CatalystX::Debug::RequestHeaders';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
-requires 'Catalyst::Action::REST';
+requires 'Catalyst::Action::REST' => '0.86';
 requires 'Catalyst::View::TT';
 requires 'Template::Plugin::JSON';
 requires 'HTML::TreeBuilder';  # For AddID Template plugin
