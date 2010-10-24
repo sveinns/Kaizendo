@@ -16,3 +16,5 @@ README-Github.mkdn$
 .*\.sqlite3-journal$
 \.swp$
 \.old$
+t/data/IHE.PL$
+t/data/t01.html
