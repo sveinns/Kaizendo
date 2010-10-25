@@ -16,6 +16,6 @@ for my $next_chapter (@chapterstarts) {
 	system "perl convert.pl $inputfiles $output_chapter";
 	$current_chapter = $next_chapter;
 	my $chapterfile = "plain/ch" . $output_chapter . ".html";
-	system "tidy --show-body-only yes -utf8 -o plain/ch$output_chapter.html -i tmp/ch$output_chapter.html";
+	system "tidy --show-body-only yes --preserve-entities yes --input-encoding utf8 --output-html yes -o plain/ch$output_chapter.html -i tmp/ch$output_chapter.html";
 	$output_chapter++;
 }
