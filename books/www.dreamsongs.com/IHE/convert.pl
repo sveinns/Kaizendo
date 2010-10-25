@@ -6,13 +6,13 @@ use strict;
 use autodie;
 
 my $chapter = pop();
-my $html = "plain/ch$chapter.html";
-my $txt  = "plain/ch$chapter.txt";
-my $tex  = "plain/ch$chapter.tex";
+my $html = "tmp/ch$chapter.html";
+my $txt  = "tmp/ch$chapter.txt";
+my $tex  = "tmp/ch$chapter.tex";
 
 for (@ARGV) {
 	my $file=$_;
-	open(my $infile, "<","$file");
+	open(my $infile, "<","$file") or die "Cannot read file '$file': $!";
 	$_ = join "", <$infile>;
 	close($infile);
 
@@ -38,6 +38,7 @@ for (@ARGV) {
 	print $fh $text;
 	close($fh);
 }
+system "mkdir -p tmp";
 system "cat *.$chapter > $html";
 system "rm *.$chapter";
 system "pandoc -o $txt $html";
