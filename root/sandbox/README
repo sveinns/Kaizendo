@@ -11,3 +11,9 @@ ysh -r < example_discussion.yml
 test $? = 0 && json_xs -f yaml -t json \
    < example_discussion.yml \
    > example_discussion.json
+
+ysh -r < comment_list.yml
+
+test $? = 0 && json_xs -f yaml -t json \
+   < comment_list.yml \
+   > comment_list.json
