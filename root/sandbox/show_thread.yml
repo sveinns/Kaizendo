@@ -1,29 +1,35 @@
 # This is the original the JSON is generated from. See README in this dir.
 ---
 context:
-  id: '91af795a8afbf6bf7ccc612118556ed4713c4bce'
+  context_id: '91af795a'
   thread:
     -
-      id: '8b106f26-584c-b6ba-0f58-bdea3b289591'
+      thread_id: '8b106f26'
       in_reply_to: ~
       reply_ids:
-        - '92f562c4-8c72-8fdb-a8cc-9a2bd69315e0'
-        - '1dc551b7-5203-9e3f-97fa-9eebf92e605b'
-      thread_id: '8b106f26-584c-b6ba-0f58-bdea3b289591'
-      title: Are bananas bad?
+        - '92f562c4'
+        - '1dc551b7'
+      thread_id: '8b106f26'
+      location:
+        start_path:
+        start_offset:
+        end_path:
+        end_offset: 
+        child_paths: ~
       author:
         url: /_user/sjn
         name: Salve J. Nilsen
         id: sjn
       published: '2010-03-19T17:26:59'
+      subject: Are bananas bad?
       content: 'Is this a good idea? I have heard that bananas can be bad for your health.'
       replies:
         -
-          id: '92f562c4-8c72-8fdb-a8cc-9a2bd69315e0'
-          in_reply_to: '8b106f26-584c-b6ba-0f58-bdea3b289591'
+          id: '92f562c4'
+          in_reply_to: '8b106f26'
           reply_ids: ~
-          thread_id: '8b106f26-584c-b6ba-0f58-bdea3b289591'
-          title: Eat your bananas!
+          thread_id: '8b106f26'
+          subject: Eat your bananas!
           author:
             url: /_user/foo
             name: B. A. Baracus
@@ -32,11 +38,11 @@ context:
           content: 'I pity the foo that thinks bananas are bad for you!!'
           replies:
             -
-              id: 'e84a39cf-9482-7385-9b5d-719736df585b'
-              in_reply_to: '92f562c4-8c72-8fdb-a8cc-9a2bd69315e0'
+              id: 'e84a39cf'
+              in_reply_to: '92f562c4'
               reply_ids: ~
-              thread_id: '8b106f26-584c-b6ba-0f58-bdea3b289591'
-              title: WTF?
+              thread_id: '8b106f26'
+              subject: WTF?
               author:
                 url: /_user/faceman
                 name: Tempelton Peck
@@ -44,11 +50,11 @@ context:
               published: '2010-03-19T21:19:22'
               content: 'Shut up, B.A. the feds might be listening in.'    
         -
-          id: '1dc551b7-5203-9e3f-97fa-9eebf92e605b'
-          in_reply_to: '8b106f26-584c-b6ba-0f58-bdea3b289591'
+          id: '1dc551b7'
+          in_reply_to: '8b106f26'
           reply_ids: ~
-          thread_id: '8b106f26-584c-b6ba-0f58-bdea3b289591'
-          title: OMG Banana HAX!!1!
+          thread_id: '8b106f26'
+          subject: OMG Banana HAX!!1!
           author:
             url: /_user/the_man
             name: The Man
@@ -56,11 +62,11 @@ context:
           published: '2010-03-20T09:40:02'
           content: 'Listen to The Man - Bananas are bad for you.'    
     -
-      id: 'c8f645b8-6e7b-136d-9b63-f0eb13f923da'
+      id: 'c8f645b8'
       in_reply_to: ~
       reply_ids: ~
-      thread_id: 'c8f645b8-6e7b-136d-9b63-f0eb13f923da'
-      title: We need moar yellow
+      thread_id: 'c8f645b8'
+      subject: We need moar yellow
       author:
         url: /_user/sveinns
         name: Sveinn Sandvik Svendsen

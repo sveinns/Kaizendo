@@ -3,7 +3,7 @@
 context:
   id: '91af795a'
   url: '/IHE/1/'
-  discussions:
+  threads:
     -
       id: '8b106f26'
       location:
@@ -16,6 +16,7 @@ context:
         url: /_user/ben
         name: Ben Cawkwell
         id: ben
+      comments: 1
       published: '2010-03-19T17:26:59'
       subject: 'Need to be more explicit about what expansive thinking is'
     -
@@ -30,6 +31,7 @@ context:
         url: /_user/sjn
         name: Salve J. Nilsen
         id: sjn
+      comments: 1
       published: '2010-06-19T17:26:59'
       subject: 'These dates are wrong'
     -
@@ -44,6 +46,7 @@ context:
         url: /_user/bob
         name: Bob Builder
         id: bob
+      comments: 1
       published: '2010-08-02T19:01:51'
       subject: 'Is this the correct way to write 1900s and 2000s?'
     -
@@ -58,5 +61,6 @@ context:
         url: /_user/sloath
         name: S. Loather
         id: sloath
+      comments: 1
       published: '2010-06-19T17:26:59'
       subject: "This is making an assumption"
