@@ -436,7 +436,17 @@ function createComment(comment_data) {
     };
     comments.push(comment);
 }
-
+function getCommentCount(comment) {
+    var count = 1;
+    if(comment.comments) {
+        $.each(comment.comments,
+            function(index,c) {
+                count = count + getCommentCount(c);
+            }
+        );
+    }
+    return count;
+}
 // getLocation/getRange should be jquery functions
 // $(#text_content).getLocation(range)
 function getLocation(range) {
