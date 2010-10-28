@@ -15,6 +15,9 @@ around BUILDARGS => sub {
     return $args;
 };
 
+#
+# FIXME: t0m's horrible lookup methods (as he points out) need to die :-)
+#
 # Get all the available projects
 method get_all_projects { # Please pay no attention to the contents of this method, it needs to die :)
     my $bulk = $self->root_set;
