@@ -38,6 +38,7 @@ If you want to learn more about the project, check out L<http://kaizendo.org/>.
 
 Salve J. Nilsen <sjn@kaizendo.org>
 Tomas Doran <bobtfish@bobtfish.net>
+Ben Cawkwell <bencawkwell@gmail.com>
 
 
 =head1 COPYRIGHT
