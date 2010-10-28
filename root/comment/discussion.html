@@ -1,7 +1,7 @@
 [%
   # Temporary JSON handler, while we're testing
   USE JSON;
-  json = INSERT sandbox/example_discussion.json;
+  json = INSERT sandbox/show_thread.json;
   discussion_data = JSON.json_decode(json);
   discussion = discussion_data.context.thread;
   discussion_id = discussion_data.context.id;
@@ -58,3 +58,4 @@
         </div>
     </div>
 </div>
+<!-- end of comment/discussion.html -->

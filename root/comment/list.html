@@ -1,11 +1,13 @@
 [%
   # Temporary JSON handler, while we're testing
   USE JSON;
-  json = INSERT sandbox/example_discussion.json;
+  json = INSERT sandbox/list_threads.json;
   discussion_data = JSON.json_decode(json);
   discussion = discussion_data.context.thread;
   discussion_id = discussion_data.context.id;
   depth = 0;
+
+  USE Dumper;
 %]
 
 [% BLOCK new_discussion %]
@@ -21,6 +23,11 @@
 </ol>
 [% END %]
 
+<!-- in comment/list.html -->
 <div class="[% discussion_id %]">
 [% INCLUDE new_discussion discussion=discussion depth=depth %]
+</div>
+<!-- end of comment/list.html -->
+<div class="debug">
+[% Dumper.dump(rest) %]
 </div>
