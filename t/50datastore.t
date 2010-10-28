@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-use Class::MOP;
 use Test::More;
 use Moose::Autobox;
 use FindBin qw/$Bin/;
