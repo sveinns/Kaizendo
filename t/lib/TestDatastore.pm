@@ -6,6 +6,7 @@ use FindBin qw/$Bin/;
 use aliased 'App::Kaizendo::Datastore';
 use aliased 'App::Kaizendo::Datastore::Project';
 use aliased 'App::Kaizendo::Datastore::Comment';
+use aliased 'App::Kaizendo::Datastore::Location';
 use aliased 'App::Kaizendo::Datastore::Person';
 
 our @EXPORT = qw/getTestDatastore buildTestData/;
@@ -76,15 +77,77 @@ sub buildTestData {
     }
     $store->store($doc);
 
-    # Set up comments
-    my $comment = Comment->new(
-        project => $doc,
-        content => 'This is a good book, believe me!',
-        author  => $author2,
-        );
-    ok $comment;
+    # Specify some locations
+    my $location1 = Location->new(
+        id  => 1,
+        url => '/IHE/1/',
+        start_path => '/div/p:[1]',
+        start_offset => 31,
+        end_path => '/div/p:[1]',
+        end_offset => 70,
+        child_paths => [],
+      );
+    ok $location1, "Created location 1";
+    ok $store->store($location1), "Stored location 1";
 
-    ok $store->store($comment);
+    my $location2 = Location->new(
+        id  => 2,
+        url => '/IHE/1/',
+        start_path => '/div/p:[1]',
+        start_offset => 62,
+        end_path => '/div/p:[1]',
+        end_offset => 121,
+        child_paths => [],
+      );
+    ok $location2, "Created location 2";
+    ok $store->store($location2), "Stored location 2";
+
+    my $location3 = Location->new(
+        id  => 3,
+        url => '/IHE/1/',
+        start_path => '/div/p:[1]',
+        start_offset => 286,
+        end_path => '/div/p:[1]',
+        end_offset => 300,
+        child_paths => [],
+      );
+    ok $location3, "Created location 3";
+    ok $store->store($location3), "Stored location 3";
+
+
+    # Create some comments
+    my $comment1 = Comment->new(
+        id => 1,
+        author  => $author2,
+        in_reply_to => undef,
+        subject => "This is racist",
+        content => "expand that thinking!",
+        location => $location1,
+      );
+    ok $comment1, "Created comment 1";
+    ok $store->store($comment1), "Stored comment 1";
+
+    my $comment2 = Comment->new(
+        id => 2,
+        author  => $author1,
+        in_reply_to => undef,
+        subject => "This is wron",
+        content => "What lessons?",
+        location => $location2,
+      );
+    ok $comment1, "Created comment 2";
+    ok $store->store($comment2), "Stored comment 2";
+
+    my $comment3 = Comment->new(
+        id => 3,
+        author  => $author2,
+        in_reply_to => undef,
+        subject => "This is making an assumption",
+        content => "Not me!",
+        location => $location3,
+      );
+    ok $comment1, "Created comment 3";
+    ok $store->store($comment1), "Stored comment 3";
 
     return $store;
 }
