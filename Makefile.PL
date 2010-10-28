@@ -28,7 +28,6 @@ requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Action::REST' => '0.86';
 requires 'Catalyst::View::TT';
 requires 'Template::Plugin::JSON';
-requires 'HTML::TreeBuilder';  # For AddID Template plugin
 requires 'Catalyst::Model::KiokuDB' => '0.12';
 requires 'Moose';
 requires 'MooseX::Types';
@@ -41,7 +40,6 @@ requires 'Config::General';
 requires 'KiokuX::Model';
 requires 'KiokuDB::Backend::DBI';
 requires 'DateTime';
-requires 'Digest::SHA1';
 requires 'aliased';
 
 recommends 'JSON::XS';
