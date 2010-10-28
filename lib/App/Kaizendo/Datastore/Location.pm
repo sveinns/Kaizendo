@@ -13,6 +13,16 @@ has child_paths  => ( is => 'ro', isa => ArrayRef ); # FIXME: handle sub-tree co
 has url          => ( is => 'ro', isa => Str ); # document level context
 
 
+sub TO_JSON {
+    my $self = shift;
+    my %serialized;
+    foreach (qw(start_path start_offset end_path end_offset child_paths)) {
+        $serialized{$_} = $self->$_;
+    }
+    
+    return \%serialized;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
 

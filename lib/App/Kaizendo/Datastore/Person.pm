@@ -6,6 +6,7 @@ use App::Kaizendo::Moose;  # Set up Moose for this package
 has name  => ( is => 'ro', isa => 'Str', required => 1 );
 has uri   => ( is => 'ro', isa => 'Str' ); # FIXME: URI check
 has email => ( is => 'ro', isa => 'Str' ); # FIXME: email check
+has id    => ( is => 'ro', isa => 'Str' );
 
 has access => ( is => 'ro', isa => 'Int', default => 0 ); # FIXME: Use enum Types
 
