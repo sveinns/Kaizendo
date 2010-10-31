@@ -26,9 +26,10 @@ has location    => ( is => 'ro', required => 1, isa => 'App::Kaizendo::Datastore
 sub TO_JSON {
     my $self = shift;
     my %serialized;
-    foreach (qw(id location published author subject content)) {
+    foreach (qw(id location author subject content)) {
         $serialized{$_} = $self->$_;
     }
+    $serialized{published} = $self->published. ""; # Don't return DateTime object
     
     return \%serialized;
 }
