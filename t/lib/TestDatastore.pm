@@ -47,10 +47,20 @@ sub buildTestData {
     my ($store) = @_;
     my $s = $store->new_scope;
 
-    my $author1 = Person->new( name => "Ron Goldman", access => 1 );
+    my $author1 = Person->new(
+        id => 1,
+        name => "Ron Goldman",
+        access => 1,
+        email => q<ron@example.net>,
+        uri => "/_user/ron" );
     ok $author1, 'Register first author';
 
-    my $author2 = Person->new( name => "Richard P. Gabriel", access => 1 );
+    my $author2 = Person->new(
+        id => 2,
+        name => "Richard P. Gabriel",
+        access => 1,
+        email => q<rich@example.net>,
+        uri => "/_user/rich" );
     ok $author2, 'Register second author';
 
     my $doc = Project->new(name => 'IHE');
@@ -131,7 +141,7 @@ sub buildTestData {
         id => 2,
         author  => $author1,
         in_reply_to => undef,
-        subject => "This is wron",
+        subject => "This is wrong",
         content => "What lessons?",
         location => $location2,
       );
