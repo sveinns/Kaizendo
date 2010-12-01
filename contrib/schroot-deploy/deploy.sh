@@ -18,7 +18,9 @@
 
 # Requirements:
 #
-# - a schroot called "lucid", with user and root access
+# - a schroot called "lucid", with user and root access.  The application
+#   directory used must be available both outside and inside the chroot
+#   (typically, bind mounted.)
 #
 # - a CPAN configuration file for your application user specifiying
 #   the use of "sudo" to install perl modules
@@ -26,13 +28,13 @@
 # - Passwordless sudo access for this application user
 
 session=$(schroot -c lucid -b)
-appdir=$(mktemp -u -d /var/tmp/kaizendogfood.XXXXXXXX)
+appdir=$(mktemp -d /tmp/kaizendogfood.XXXXXXXX)
 
 install_dev_environment() {
     echo "### Installing development environment"
 
     modules="Catalyst::Devel DBIx::Class Module::Install
-        Module::Install::AuthorRequires SQL::Translator est::EOL
+        Module::Install::AuthorRequires SQL::Translator Test::EOL
         Test::NoTabs Test::Pod Test::Pod::Coverage"
 
     rm -fr ~/.cpan/build
