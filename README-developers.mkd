@@ -1,0 +1,41 @@
+# SOURCE
+
+To check out the source from Github, run the following:
+
+  $ git clone http://github.com/sjn/Kaizendo.git Kaizendo
+
+# BUILDING
+
+To build Kaizendo from the Github source, you'll need to set up the
+development environment. Please install a recent version of the
+following modules:
+
+    Test::EOL
+    Test::NoTabs
+    Test::Pod
+    Test::Pod::Coverage
+    Module::Install
+    Module::Install::AuthorRequires
+    Catalyst::Devel
+    SQL::Translator
+    DBIx::Class
+
+You can do this by running the following:
+ 
+    PERL_MM_USE_DEFAULT=1 cpan -i \
+    Test::EOL \
+    Test::NoTabs \
+    Test::Pod \
+    Test::Pod::Coverage \
+    Module::Install \
+    Module::Install::AuthorRequires \
+    Catalyst::Devel \
+    SQL::Translator \
+    DBIx::Class
+
+
+When done, you can install the remaining dependencies by running the
+following command in the source dir:
+
+    PERL_MM_USE_DEFAULT=1 cpan -i .
+
