@@ -1,0 +1,38 @@
+# Kaizendo URL scheme
+
+/$project/$text/$resource
+
+
+## Component overview
+
+$project  = One-word keyword that describes the topic or purpose of the text
+$text     = Title or id of the a $project subsection or chapter
+$resource = Specific resource related to a $text
+
+
+## /$text/
+
+The $text uniquely identifies a text according to the following parameters:
+
+* $id, e.g. chapter number, chapter short-name, or something similar
+* $aspect, including combination of aspects
+* $revision, e.g. release version or tag
+
+### $aspect
+
+Used for identifying a specific aspect of a text. If aspect isn't specified, we'll be using the default aspect - the "main" or authoritative version of the text.
+
+The aspect identifyer can look like this:
+
+* ;dys         # The main text is rewritten to be more useful for dyslectics
+* ;dys+depth0  # Text is for dyslectics that only want the basics
+* ;dys+depth5  # Text is for dyslectics that want lots of depth/content
+* ;depth5      # Text is for students that want lots of depth/content
+* ;*           # List available aspects
+*              # Use default/authorative aspect
+
+### $revision
+
+Used for identifying a text, and it's associated aspects at specific named revision/tag.
+
+
