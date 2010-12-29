@@ -14,4 +14,5 @@ sveinns hasn't released yet. :-P
 # REST
 
 The REST data is a CSV file describing URLs, methods, expected content
-types, expected results and comments.
+types, expected results and comments. For more details on the REST URL
+schema, see /docs/URL-schema.mkd
