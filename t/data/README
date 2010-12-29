@@ -1,5 +1,17 @@
-This directory contains test data for the Kaizendo tool. The text is from
-selected chapters of "Innovation Happens Elsewhere", found in full at
-www.dreamsongs.com (Licensed CC-BY-SA-2.0)
+# Test data
 
-The source files for these texts can be found on the Kaizendo git repository.
+This directory contains differen test data for the Kaizendo tool.
+
+# Content
+
+Content is from selected chapters of "Innovation Happens Elsewhere",
+found in full at www.dreamsongs.com (Licensed CC-BY-SA-2.0), and somewhat
+cleaned up.
+
+The content has been cleaned up using HTML tidy(1) and other tools that
+sveinns hasn't released yet. :-P
+
+# REST
+
+The REST data is a CSV file describing URLs, methods, expected content
+types, expected results and comments.

@@ -48,15 +48,26 @@ as usual, and finally start the demo webserver:
 
  scripts/kaizendo_server.pl -d   # start server in debug mode
 
+And then point your browser to the URL mentioned at the last step.
+
+Running the test suite creates a database that you can browse, so you have
+to run it at least once.
+
+# DEBUGGING
+
+Debugging can be turned on by running the tests as above, and then firing up
+the server as follows:
+
+  script/kaizendo_server.pl -d -r
 
 # OTHER SOFTWARE
 
 This package includes code from projects that have their own licenses:
 
-  jQuery
-  JSON
-  Blueprint CSS Framework
-  Readability
+  [jQuery](http://jquery.com/)
+  [JSON](http://json.org/)
+  [Blueprint CSS Framework](http://blueprintcss.org/)
+  [Readability](http://lab.arc90.com/experiments/readability/)
 
 Please see the respective project websites for licensing information and
 the opportunity to download the newest source code.

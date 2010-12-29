@@ -8,6 +8,7 @@ cover_db
 inc*
 kiokudb.sqlite3
 kiokudb.sqlite3-journal
+.~lock.*#
 .lwpcookies
 Makefile
 Makefile.old
