@@ -5,9 +5,14 @@
 
 ## Component overview
 
-$project  = One-word keyword that describes the topic or purpose of the text
+$project  = One-word keyword that describes the topic or purpose of the $text
 $text     = Title or id of the a $project subsection or chapter
 $resource = Specific resource related to a $text
+
+
+## /$project/
+
+The project name. A short single-word keyword that uniquely identifies the purpose of the /$text/ 
 
 
 ## /$text/
@@ -18,9 +23,16 @@ The $text uniquely identifies a text according to the following parameters:
 * $aspect, including combination of aspects
 * $revision, e.g. release version or tag
 
+### $id
+
+Identifies a sub-section of a project. For a book, this means $id is identifying a specific chapter.
+
+* /1          # first chapter
+* /intro      # first chapter (named) 
+
 ### $aspect
 
-Used for identifying a specific aspect of a text. If aspect isn't specified, we'll be using the default aspect - the "main" or authoritative version of the text.
+Used for identifying a specific aspect of a text. If aspect is not specified, we use the default aspect (the designated "main" or authoritative version of the /$text/.)
 
 The aspect identifyer can look like this:
 
@@ -28,11 +40,41 @@ The aspect identifyer can look like this:
 * ;dys+depth0  # Text is for dyslectics that only want the basics
 * ;dys+depth5  # Text is for dyslectics that want lots of depth/content
 * ;depth5      # Text is for students that want lots of depth/content
-* ;*           # List available aspects
+* ;            # List available aspects
 *              # Use default/authorative aspect
 
 ### $revision
 
-Used for identifying a text, and it's associated aspects at specific named revision/tag.
+Used for identifying a text, and it's associated aspects at specific named revision (tag). If $revision is not present, we assume the latest revision.
+
+A permalink of a /$text/ must include a revision tag.
+
+* :1.0         # Show /$id;$aspect/ as it was at $revision 1.0
+* :2.1         # Show /$id;$aspect/ as it was at $revision 2.1
+* :            # List $revisions that are available for /$id;$aspect/
+*              # Show latest (current) stable $release
+* :latest      # Redirects to the latest UNstable $revision of /$id;$aspect/
+* :stable      # Redirects to the latest stable $revision of /$id;$aspect/ 
+
+
+## $resource
+
+Used for any supporting data objects or queries related to a specific /$text/ aspect-revision.
+
+* /c           # A list of available discussions related to /$text/
+* /c/id        # A specific comment, in context
+* /$object     # Image, SVG or other resource object related to /$text/
+* /meta        # Access meta information about the /$text/
+
+
+### Examples
+
+* /history/2/
+
+Show the contents of the latest stable version of the main aspect of chapter 2 of the history book.
+
+* /history/2;dys/c  
+
+List comments related to dyslectic's aspect of chapter 2 in the 3rd history book.
 
 
