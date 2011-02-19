@@ -26,7 +26,7 @@ or the _#kaizendo_ IRC channel on irc.freenode.org.
 To get an idea of where you can help, check out the TODO.mkdn file in our
 Github repository.
 
-  [TODO](http://github.com/sjn/Kaizendo/blob/master/TODO.mkdn)
+  [TODO](http://github.com/sjn/Kaizendo/blob/master/TODO.mkd)
 
 # COMMUNITY
 
