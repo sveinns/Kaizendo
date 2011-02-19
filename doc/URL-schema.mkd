@@ -2,6 +2,13 @@
 
 /$project/$text/$resource
 
+## Example URLs
+
+A .csv file with example URLs (including use and explanation) can be found in this distribution:
+
+* t/data/REST.csv
+* GitHub: http://github.com/sjn/Kaizendo/raw/master/t/data/REST.csv
+
 
 ## Component overview
 
@@ -19,6 +26,8 @@ The project name. A short single-word keyword that uniquely identifies the purpo
 
 The $text uniquely identifies a text according to the following parameters:
 
+/$id:$aspect-$revision/
+
 * $id, e.g. chapter number, chapter short-name, or something similar
 * $aspect, including combination of aspects
 * $revision, e.g. release version or tag
@@ -27,8 +36,8 @@ The $text uniquely identifies a text according to the following parameters:
 
 Identifies a sub-section of a project. For a book, this means $id is identifying a specific chapter.
 
-* /1          # first chapter
-* /intro      # first chapter (named) 
+* 1           # first chapter
+* intro       # first chapter (named) 
 
 ### $aspect
 
