@@ -19,25 +19,53 @@ $resource = Specific resource related to a $text
 
 ## /$project/
 
-The project name. A short single-word keyword that uniquely identifies the purpose of the /$text/ 
+The project name and revision. Revision is optional, and if it is omitted then "master" is assumed.
+
+/$name-$revision/
+
+* $name, e.g. the short-name of a book
+* $revision, e.g. release version or tag
+
+### $name
+
+A short single-word keyword that uniquely identifies the purpose of the /$text/.
+
+### $revision
+
+Used for identifying a text, and it's associated aspects at specific named revision (a "tag" in git termonology). If $revision is not present, we assume HEAD of the "master" branch. (Strictly speaking we might just as well allow any ID here that can be used as an identifying parameter to "git checkout".)
+
+
+
+* -1.0         # Show /$id:$aspect/ as it was at $revision 1.0
+* -2.1         # Show /$id:$aspect/ as it was at $revision 2.1
+* -            # List $revisions that are available for /$id:$aspect/
+* -master      # Redirects to the latest stable $revision of /$id:$aspect/
+* -stable      # Redirects to the latest stable $revision of /$id:$aspect/ 
+* -2.2dev0     # Show
+*              # Show latest (current) stable $revision of /$id:$aspect/
+
+Examples above are assumed to be below /$name .
 
 
 ## /$text/
 
-The $text uniquely identifies a text according to the following parameters:
+The $text uniquely identifies a text within a /$project/ according to the following parameters:
 
-/$id:$aspect-$revision/
+/$id:$aspect/
 
 * $id, e.g. chapter number, chapter short-name, or something similar
 * $aspect, including combination of aspects
-* $revision, e.g. release version or tag
+
+A permalink to a /$text/ must include a revision tag in it's /$project/.
 
 ### $id
 
 Identifies a sub-section of a project. For a book, this means $id is identifying a specific chapter.
 
-* 1           # first chapter
-* intro       # first chapter (named) 
+* /1      # first chapter
+* /intro  # first chapter (named) 
+
+Examples above are assumed to be below a /$project .
 
 ### $aspect
 
@@ -45,25 +73,14 @@ Used for identifying a specific aspect of a text. If aspect is not specified, we
 
 The aspect identifyer can look like this:
 
-* ;dys         # The main text is rewritten to be more useful for dyslectics
-* ;dys+depth0  # Text is for dyslectics that only want the basics
-* ;dys+depth5  # Text is for dyslectics that want lots of depth/content
-* ;depth5      # Text is for students that want lots of depth/content
-* ;            # List available aspects
+* :dys         # The main text is rewritten to be more useful for dyslectics
+* :dys,depth0  # Text is for dyslectics that only want the basics
+* :dys,depth5  # Text is for dyslectics that want lots of depth/content
+* :depth5      # Text is for students that want lots of depth/content
+* :            # List available aspects
 *              # Use default/authorative aspect
 
-### $revision
-
-Used for identifying a text, and it's associated aspects at specific named revision (tag). If $revision is not present, we assume the latest revision.
-
-A permalink of a /$text/ must include a revision tag.
-
-* :1.0         # Show /$id;$aspect/ as it was at $revision 1.0
-* :2.1         # Show /$id;$aspect/ as it was at $revision 2.1
-* :            # List $revisions that are available for /$id;$aspect/
-*              # Show latest (current) stable $release
-* :latest      # Redirects to the latest UNstable $revision of /$id;$aspect/
-* :stable      # Redirects to the latest stable $revision of /$id;$aspect/ 
+Examples above are assumed to be below /$project/$id .
 
 
 ## $resource
@@ -74,6 +91,8 @@ Used for any supporting data objects or queries related to a specific /$text/ as
 * /c/id        # A specific comment, in context
 * /$object     # Image, SVG or other resource object related to /$text/
 * /meta        # Access meta information about the /$text/
+
+Examples above are assumed to be below /$project/$text .
 
 
 ### Examples

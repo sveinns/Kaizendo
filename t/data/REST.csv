@@ -1,50 +1,50 @@
-"URL Shown","Method","URL Used","Content Type","Reply status","URL Schema","Reply Headers","Expected result","Description","Priority","Edit form leads to","Comments and issues"
-"/","GET","/","text/html","200 OK","/",,"List (projects)","List available projects; Main site page",1,"Create project",
-"/_user/","GET","/_user/","text/html","200 OK","/_user",,"List (users)","Show a list of users on the site",,"Register new user",
-"/_user/","POST","/_user/","application/x-www-form-urlencoded","201 Created","/_user","Location: /_user/username","Register (new user)","Create a new user for the site",,,
-"/_user/username/","GET","/_user/username/","text/html","200 OK","/_user/id",,"Show (user)","Show a specific user on the site",,,
-"/;","GET","/;","text/html","200 OK","/;",,"List (aspects)","Give an overview of all the aspects used across all projects",4,,
-"/;","GET","/;","application/json","200 OK","/;",,"List (aspects)","List all available aspects across projects, as JSON",5,,
-"/#","GET","/_c/","text/html","200 OK","/#",,"List (comments)","Show comments to project overview page",2,"Create comment",
-"/#","GET","/_c/","application/json","200 OK","/#",,"List (comments)","List of comments at main page, as JSON",3,,
-"/#","POST","/_c/","application/x-www-form-urlencoded","201 Created","/#","Location: /#c01","Add comment (projects)","Create a new comment, then redirect to this comment (e.g. ""Location: /#c01"")",,,
-"/#","PUT","/_c/","application/x-www-form-urlencoded","405 Method Not Allowed","/#","Allow: GET, POST",,"Replace comment thread (We don't want that yet)",,,
-"/#c01","GET","/_c/c01","application/unsupported","406 Not Acceptable","/#comment",,"Display (comments)",,,,
-"/#c01","GET","/_c/c01","text/html","200 OK","/#comment",,"Display (comments)","Show specific comment and it's thread, on the main page",2,"Reply to comment",
-"/#c01","GET","/_c/c01","application/json","200 OK","/#comment",,"Display (comments)","Get the contents of all comments in thread starting with #c01, as JSON",3,,
-"/IHE/","GET","/IHE/","text/html","200 OK","/project/",,"List (texts)","List all sections in project; Main project page",1,"Create section",
-"/IHE;/","GET","/IHE;/","text/html","200 OK","/project;/",,"List (aspects)","List available aspects within a project",4,,
-"/IHE;/","POST","/IHE;/","application/x-www-form-urlencoded","405 Method Not Allowed","/project;/","Allow: GET","Add (aspect)","Create an aspect of the project (we don't want that, we prefer section aspects)",,,
-"/IHE/?r=list","GET","/IHE/?r=list","text/html","200 OK","/project/?r=list",,"List (revisions)","List major revisions/snapshots/releases of a project",7,,
-"/IHE.git","GET","/IHE.git","*/*","200 OK","/project.git",,"Download git project",,9,,
-"/IHE/_user/","GET","/IHE/_user/","text/html","200 OK","/project/_user/",,"List (users in project)","Show a list of users connected to a project",,"Add user to project",
-"/IHE/1/","GET","/IHE/1/","text/html","200 OK","/project/chapter/",,"Display (text)","Show specific section page (no comments)",1,,
-"/IHE/1/","GET","/IHE/1/","text/html","302 Found","/project/chapter/","Location: /IHE/1/?r=latestrev","Redirect to permanent URL","Get the permanent URL of current version ",3,,"Is this a good idea?"
-"/IHE/1;/","GET","/IHE/1;/","text/html","200 OK","/project/chapter;/",,"List (aspects)","List available aspects of a section",4,"Create aspect",
-"/IHE/1;/","POST","/IHE/1;/","application/x-www-form-urlencoded","201 Created","/project/chapter;/","Location: /IHE/1;aspect1/","Add aspect (text)","Create a new aspect for a section, then redirect to the new aspect",,,
-"/IHE/1;+simple/","GET","/IHE/1;+simple/","text/html","200 OK","/project/chapter;+aspect1/",,"Display (diff)","Compare section HEAD aspect and another aspect, with diff",5,,
-"/IHE/1;simple;extrarefs/#","GET","/IHE/1;simple;extrarefs/_c/c01","text/html","404 Not Found","/project/chapter;aspect;aspect/#",,,"Show comments regarding section's aspect 1 and 2 non-diffing comparison (not useful?)",9,,
-"/IHE/1;simple/","GET","/IHE/1;simple/","text/html","200 OK","/project/chapter;aspect1/",,"Display (text)","Show a section's aspect text (no comments)",4,,
-"/IHE/1;simple/static/timeline.png","GET","/IHE/1;simple/static/timeline.png","image/*","200 OK","/project/chapter;aspect1/static/img.png",,"Transfer (image)","Show a section's aspect text (no comments)",4,,
-"/IHE/1;simple,dyslectic/","GET","/IHE/1;simple,dyslectic/","text/html","200 OK","/project/chapter;aspect1,aspect2/",,"Display (text)","Show a section's combination-aspect as text (no comments)",9,,
-"/IHE/1;simple,dyslectic;extrarefs/","GET","/IHE/1;simple,dyslectic;extrarefs/","text/html","200 OK","/project/chapter;aspect1,aspect2;aspect3/",,"Display (text)","Compare two aspects (where one is a combination-aspect) of a section next to eachother, but without diff",9,,
-"/IHE/1;simple,dyslectic+extrarefs/","GET","/IHE/1;simple,dyslectic+extrarefs/","text/html","200 OK","/project/chapter;aspect1,aspect2+aspect3/",,"Display (diff)","Compare a section's aspect 1 (where 1 is a combibation-aspect) and 2, with diff",9,,
-"/IHE/1;simple;extrarefs/","GET","/IHE/1;simple;extrarefs/","text/html","200 OK","/project/chapter;aspect1;aspect2/",,"Display (text)","Compare two aspects of a section next to eachother, but without diff",8,,
-"/IHE/1;simple/#c01","GET","/IHE/1;simple/_c/c01","text/html","200 OK","/project/chapter;aspect1/#comment",,"Display (comments)","Specific comment/discussion to an aspect text",4,,
-"/IHE/1;simple/#c01","POST","/IHE/1;simple/_c/c01","application/x-www-form-urlencoded","201 Created","/project/chapter;aspect1/#comment","Location: /IHE/1;simple/#c02","Reply comment (text)","Create a reply to comment, then redirect to new comment",,,
-"/IHE/1;simple+extrarefs/","GET","/IHE/1;simple+extrarefs/","text/html","200 OK","/project/chapter;aspect1+aspect2/",,"Display (diff)","Compare a section's aspect 1 and 2, with diff",5,,
-"/IHE/1;simple+extrarefs/?r=1234","GET","/IHE/1;simple+extrarefs/?r=1235","text/html","200 OK","/project/chapter;aspect1+aspect2/?r=revision",,"Display (diff)","Within a specific revision of a project; compare two aspects of it, with diff",6,,
-"/IHE/1;simple+extrarefs/#","GET","/IHE/1;simple+extrarefs/_c/c01","text/html","404 Not Found","/project/chapter;aspect1+aspect2/#",,,"Show comments regarding section's aspect 1 and 2 diff comprison (not useful?)",,,"Would it be better to just redirect? Is it useful to comment a diff? What about revisions?"
-"/IHE/1/?depth=4#c01","GET","/IHE/1/_c/c01?depth=4","text/html","200 OK","/project/chapter/?depth=4#comment",,"Display (comments, with depth of 4 or less)","Show specific section, list comment thread starting with #c01, but no comments with depth of more than 4",8,,
-"/IHE/1/?r=list","GET","/IHE/1/?r=list","text/html","200 OK","/project/chapter/?r=list",,"List (revisions)","List major revisions/snapshots/releases of a section",7,,
-"/IHE/1/?r=1234","GET","/IHE/1/?r=1235","text/html","200 OK","/project/chapter/?r=revision",,"Display (text)","Show specific revision of a section",6,,
-"/IHE/1/_user/","GET","/IHE/1/_user/","text/html","404 Not Found","/project/chapter/_user",,,"List of users connected to sections doesn't make sense",,,
-"/IHE/1/static/overview.jpg","GET","/IHE/1/static/overview.jpg","image/jpg; image/png","200 OK","/project/chapter/static/image.jpg",,"Display (image)","Show an image",1,,
-"/IHE/1/#","GET","/IHE/_c/","text/html","200 OK","/project/chapter/#",,"List (comments)","Show specific section (List all comment threads)",2,"Create comment",
-"/IHE/1/#c01","GET","/IHE/1/_c/c01","text/html","200 OK","/project/chapter/#comment",,"Display (comments)","Show specific section, list comment thread starting with #c01",2,"Reply to comment",
-"/IHE/1/#c01","POST","/IHE/1/_c/c01","application/x-www-form-urlencoded","201 Created","/project/chapter/#comment","Location: /IHE/1/#c02","Reply comment (text)","Create a reply to comment, then redirect to new comment",,,
-"/IHE/1/#p01","GET","/IHE/1/","text/html","200 OK","/project/chapter/#paragraph",,"Display (text, at paragraph)","Show specific section at the paragraph with the id #p01",8,,
-"/IHE/1+2/","GET","/IHE/1+2/","text/html","200 OK","/project/chapter1+chapter2/",,"Display (diff)","Compare with diff: section 1 and 2",4,,
-"/static/images/banner01.jpg","GET","/static/images/banner01.jpg","image/jpg; image/png","200 OK","/static/images/some_ui_image.jpg",,"Transfer (image)","Download static image",2,,
-"/static/js/comments.js","GET","/static/js/comments.js","application/javascript; */*","200 OK","/static/js/some_ui_script.js",,"Transfer (JS code)","Download static Javascript",2,,
-"/static/css/layout.css","GET","/static/css/layout.css","text/css; */*","200 OK","/static/css/layout.css",,"Transfer (CSS)","Download static CSS",2,,
+"URLShown","Method","URLUsed","ContentType","ReplyStatus","URLSchema","ReplyHeaders","ExpectedResult","Description","Priority","EditformLeadsTo","Comments"
+"/","GET","/","text/html","200 OK","/","","List (projects)","List available projects; Main site page","1","Create project",""
+"/~","GET","/~","text/html","200 OK","/~","","List (users)","Show a list of users on the site","","Register new user",""
+"/~","POST","/~","application/x-www-form-urlencoded","201 Created","/~","Location: /_user/username","Register (new user)","Create a new user for the site","","",""
+"/~username/","GET","/~username/","text/html","200 OK","/~id/","","Show (user)","Show a specific user on the site","","",""
+"/:","GET","/:","text/html","200 OK","/:","","List (aspects)","Give an overview of all the aspects used across all projects","4","",""
+"/:","GET","/:","application/json","200 OK","/:","","List (aspects)","List all available aspects across projects, as JSON","5","",""
+"/#","GET","/c/","text/html","200 OK","/#","","List (comments)","Show comments to project overview page","2","Create comment",""
+"/#","GET","/c/","application/json","200 OK","/#","","List (comments)","List of comments at main page, as JSON","3","",""
+"/#","POST","/c/","application/x-www-form-urlencoded","201 Created","/#","Location: /#c01","Add comment (projects)","Create a new comment, then redirect to this comment (e.g. ""Location: /#c01"")","","",""
+"/#","PUT","/c/","application/x-www-form-urlencoded","405 Method Not Allowed","/#","Allow: GET, POST","","Replace comment thread (We don't want that yet)","","",""
+"/#c01","GET","/c/c01","application/unsupported","406 Not Acceptable","/#comment","","Display (comments)","","","",""
+"/#c01","GET","/c/c01","text/html","200 OK","/#comment","","Display (comments)","Show specific comment and it's thread, on the main page","2","Reply to comment",""
+"/#c01","GET","/c/c01","application/json","200 OK","/#comment","","Display (comments)","Get the contents of all comments in thread starting with #c01, as JSON","3","",""
+"/IHE/","GET","/IHE/","text/html","200 OK","/project/","","List (texts)","List all sections in project; Main project page","1","Create section",""
+"/IHE:/","GET","/IHE:/","text/html","200 OK","/project:/","","List (aspects)","List available aspects within a project","4","",""
+"/IHE:/","POST","/IHE:/","application/x-www-form-urlencoded","405 Method Not Allowed","/project:/","Allow: GET","Add (aspect)","Create an aspect of the project (we don't want that, we prefer section aspects)","","",""
+"/IHE/?r=list","GET","/IHE/?r=list","text/html","200 OK","/project/?r=list","","List (revisions)","List major revisions/snapshots/releases of a project","7","",""
+"/IHE.git","GET","/IHE.git","*/*","200 OK","/project.git","","Download git project","","9","",""
+"/IHE/~","GET","/IHE/~","text/html","200 OK","/project/~","","List (users in project)","Show a list of users connected to a project","","Add user to project",""
+"/IHE/1/","GET","/IHE/1/","text/html","200 OK","/project/section/","","Display (text)","Show specific section page (no comments)","1","",""
+"/IHE/1/","GET","/IHE/1/","text/html","302 Found","/project/section/","Location: /IHE/1/?r=latestrev","Redirect to permanent URL","Get the permanent URL of current version ","3","","Is this a good idea?"
+"/IHE/1:/","GET","/IHE/1:/","text/html","200 OK","/project/section:/","","List (aspects)","List available aspects of a section","4","Create aspect",""
+"/IHE/1:/","POST","/IHE/1:/","application/x-www-form-urlencoded","201 Created","/project/section:/","Location: /IHE/1;aspect1/","Add aspect (text)","Create a new aspect for a section, then redirect to the new aspect","","",""
+"/IHE/1:+simple/","GET","/IHE/1:+simple/","text/html","200 OK","/project/section:+aspect1/","","Display (diff)","Compare section HEAD aspect and another aspect, with diff","5","",""
+"/IHE/1:simple:extrarefs/#","GET","/IHE/1:simple:extrarefs/c/c01","text/html","404 Not Found","/project/section:aspect:aspect/#","","","Show comments regarding section's aspect 1 and 2 non-diffing comparison (not useful?)","9","",""
+"/IHE/1:simple/","GET","/IHE/1:simple/","text/html","200 OK","/project/section:aspect1/","","Display (text)","Show a section's aspect text (no comments)","4","",""
+"/IHE/1:simple/timeline.png","GET","/IHE/1:simple/timeline.png","image/*","200 OK","/project/section:aspect1/img.png","","Transfer (image)","Show a section's aspect text (no comments)","4","",""
+"/IHE/1:simple,dyslectic/","GET","/IHE/1:simple,dyslectic/","text/html","200 OK","/project/section:aspect1,aspect2/","","Display (text)","Show a section's combination-aspect as text (no comments)","9","",""
+"/IHE/1:simple,dyslectic:extrarefs/","GET","/IHE/1:simple,dyslectic:extrarefs/","text/html","200 OK","/project/section:aspect1,aspect2:aspect3/","","Display (text)","Compare two aspects (where one is a combination-aspect) of a section next to eachother, but without diff","9","",""
+"/IHE/1:simple,dyslectic+extrarefs/","GET","/IHE/1:simple,dyslectic+extrarefs/","text/html","200 OK","/project/section:aspect1,aspect2+aspect3/","","Display (diff)","Compare a section's aspect 1 (where 1 is a combibation-aspect) and 2, with diff","9","",""
+"/IHE/1:simple:extrarefs/","GET","/IHE/1:simple:extrarefs/","text/html","200 OK","/project/section:aspect1:aspect2/","","Display (text)","Compare two aspects of a section next to eachother, but without diff","8","",""
+"/IHE/1:simple/#c01","GET","/IHE/1:simple/c/c01","text/html","200 OK","/project/section:aspect1/#comment","","Display (comments)","Specific comment/discussion to an aspect text","4","",""
+"/IHE/1:simple/#c01","POST","/IHE/1:simple/c/c01","application/x-www-form-urlencoded","201 Created","/project/section:aspect1/#comment","Location: /IHE/1;simple/#c02","Reply comment (text)","Create a reply to comment, then redirect to new comment","","",""
+"/IHE/1:simple+extrarefs/","GET","/IHE/1:simple+extrarefs/","text/html","200 OK","/project/section:aspect1+aspect2/","","Display (compare)","Compare a section's aspect 1 and 2, with diff","5","",""
+"/IHE-1.0/1:simple+extrarefs/","GET","/IHE-1.0/1:simple+extrarefs/","text/html","200 OK","/project-revision/section:aspect1+aspect2/","","Display (compare)","For a specific revision of a project; compare two aspects of it, displayed next to eachother","6","",""
+"/IHE/1:simple+extrarefs/#","GET","/IHE/1:simple+extrarefs/c/c01","text/html","404 Not Found","/project/section:aspect1+aspect2/#","","","Show comments regarding section's aspect 1 and 2 diff comprison (not useful?)","","","Would it be better to just redirect? Is it useful to comment a diff? What about revisions?"
+"/IHE/1/?depth=4#c01","GET","/IHE/1/c/c01?depth=4","text/html","200 OK","/project/section/?depth=4#comment","","Display (comments, with depth of 4 or less)","Show specific section, list comment thread starting with #c01, but no comments with depth of more than 4","8","",""
+"/IHE-/1/","GET","/IHE-/1/","text/html","200 OK","/project-/section/","","List (revisions)","List major revisions/snapshots/releases of a section","7","",""
+"/IHE-1.0/1/","GET","/IHE-1.0/1/","text/html","200 OK","/project-revision/section/","","Display (text)","Show specific revision of a section","6","",""
+"/IHE/1/~","GET","/IHE/1/~","text/html","404 Not Found","/project/section/~","","","List of users connected to sections doesn't make sense","","",""
+"/IHE/1/static/overview.jpg","GET","/IHE/1/static/overview.jpg","image/jpg; image/png","200 OK","/project/section/static/image.jpg","","Display (image)","Show an image","1","",""
+"/IHE/1/#","GET","/IHE/c/","text/html","200 OK","/project/section/#","","List (comments)","Show specific section (List all comment threads)","2","Create comment",""
+"/IHE/1/#c01","GET","/IHE/1/c/c01","text/html","200 OK","/project/section/#comment","","Display (comments)","Show specific section, list comment thread starting with #c01","2","Reply to comment",""
+"/IHE/1/#c01","POST","/IHE/1/c/c01","application/x-www-form-urlencoded","201 Created","/project/section/#comment","Location: /IHE/1/#c02","Reply comment (text)","Create a reply to comment, then redirect to new comment","","",""
+"/IHE/1/#p01","GET","/IHE/1/","text/html","200 OK","/project/section/#paragraph","","Display (text, at paragraph)","Show specific section at the paragraph with the id #p01","8","",""
+"/IHE/1+2/","GET","/IHE/1+2/","text/html","200 OK","/project/section1+section2/","","Display (compare)","Compare sections 1 and 2","4","",""
+"/images/banner01.jpg","GET","/images/banner01.jpg","image/jpg; image/png","200 OK","/images/some_ui_image.jpg","","Transfer (image)","Download static image","2","",""
+"/js/comments.js","GET","/js/comments.js","application/javascript; */*","200 OK","/js/some_ui_script.js","","Transfer (JS code)","Download static Javascript","2","",""
+"/css/layout.css","GET","/css/layout.css","text/css; */*","200 OK","/css/layout.css","","Transfer (CSS)","Download static CSS","2","",""
