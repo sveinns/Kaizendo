@@ -1,4 +1,4 @@
-package App::Kaizendo::Datastore::Section;
+package App::Kaizendo::Datastore::Chapter;
 use App::Kaizendo::Moose;  # Set up Moose for this package
 use MooseX::Types::Moose qw/ Int /;
 
@@ -21,7 +21,7 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-App::Kaizendo::Datastore::Section - The basic section storage class
+App::Kaizendo::Datastore::Chapter - The basic chapter storage class
 
 =head1 AUTHORS, COPYRIGHT AND LICENSE
 

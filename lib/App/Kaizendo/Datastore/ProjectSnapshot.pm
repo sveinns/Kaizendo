@@ -2,7 +2,7 @@ package App::Kaizendo::Datastore::ProjectSnapshot;
 use App::Kaizendo::Moose;  # Set up Moose environment
 use MooseX::Types::Moose qw/ ArrayRef /;
 
-use aliased 'App::Kaizendo::Datastore::Section';
+use aliased 'App::Kaizendo::Datastore::Chapter';
 
 # Predeclare type to avoid circular class refereneces
 class_type 'App::Kaizendo::Datastore::Project'; 
@@ -36,36 +36,36 @@ has commit_message => (
 
 has editor => ( is => 'rw', isa => 'App::Kaizendo::Datastore::Person' );
 
-has sections => (
+has chapters => (
     is => 'ro',
     isa => ArrayRef,
     default => sub { [] },
     traits     => ['Array'],
     handles => {
-        no_of_sections => 'count',
-        get_section_by_number => 'get',
+        no_of_chapters => 'count',
+        get_chapter_by_number => 'get',
     },
 );
 
-around get_section_by_number => sub {
+around get_chapter_by_number => sub {
     my ($orig, $self, $no) = @_;
-    $self->$orig($no - 1);  # Sections start at 1, arrays at 0
+    $self->$orig($no - 1);  # Chapters start at 1, arrays at 0
 };
 
-method append_section (%args) {
+method append_chapter (%args) {
 
-    # Set up new section object
-    my $new_section = Section->new(
+    # Set up new chapter object
+    my $new_chapter = Chapter->new(
         project => $self->project,
-        id      => $self->no_of_sections + 1,
+        id      => $self->no_of_chapters + 1,
         content => $args{content},
         author  => $args{author}, );
 
     my $new_snapshot = blessed($self)->new(
         project  => $self->project,
-        sections => [
-            $self->sections->flatten,
-            $new_section, # Append section
+        chapters => [
+            $self->chapters->flatten,
+            $new_chapter, # Append chapter
         ],
         tag      => $args{tag},
         comment  => $args{comment},

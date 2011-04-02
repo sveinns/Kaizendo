@@ -12,7 +12,7 @@
     <h1>Kaizendo projects</h1>
     <ul>
         [% FOREACH project = projects %]
-           	<li><a href="[% c.uri_for_action('/project/sections', [project.name]) %]/">[% project.title %]</a></li>
+           	<li><a href="[% c.uri_for_action('/project/chapters', [project.name]) %]/">[% project.title %]</a></li>
         [% END %]
     </ul>
 </div>

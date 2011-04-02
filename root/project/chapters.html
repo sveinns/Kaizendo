@@ -1,7 +1,7 @@
 [% WRAPPER common/index.html
    title = project.title
 %]
-<!-- Template: root/project/sections.html -->
+<!-- Template: root/project/chapters.html -->
 
 <div id="left_col">
 
@@ -17,13 +17,13 @@
 <div id="content">
     <h1>[% project.title %]</h1>
     <ul>
-        [% FOREACH section = project.sections %]
-        <li><a href="[% c.uri_for_action('/section/content', [project.name, section.id]) %]/">Chapter [% section.id %]</a></li>
+        [% FOREACH chapter = project.chapters %]
+        <li><a href="[% c.uri_for_action('/chapter/content', [project.name, chapter.id]) %]/">Chapter [% chapter.id %]</a></li>
         [% END %]
     </ul>
 </div>
 
 <div id="right_col">&nbsp;</div>
 
-<!-- End of template: root/project/sections.html -->
+<!-- End of template: root/project/chapters.html -->
 [% END %]

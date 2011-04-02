@@ -1,7 +1,7 @@
 [% WRAPPER common/index.html
-    title = "$section.project.name, Chapter $section.id";
+    title = "$chapter.project.name, Chapter $chapter.id";
 %]
-<!-- Template: root/section/content.html -->
+<!-- Template: root/chapter/content.html -->
 
 <div id="left_col">
     [% INCLUDE common/logo.html %]
@@ -9,11 +9,11 @@
     [% INCLUDE common/help.html %]
 
     <ul id="aspect_nav">
-        <li class="section">
-            <a href="..">List Sections</a>
+        <li class="chapter">
+            <a href="..">List chapters</a>
         </li>
-        <li class="section">
-            <a href="">&lt;section</a>
+        <li class="chapter">
+            <a href="">&lt;chapter</a>
         </li>
         <li class="aspect list">
             Aspects
@@ -26,15 +26,15 @@
                 </li>
             </ul>
         </li>
-        <li class="section">
-            <a href="">section&gt;</a>
+        <li class="chapter">
+            <a href="">chapter&gt;</a>
         </li>
     </ul>
 </div><!-- End of left_col -->
 
 <div id="content">
     <div id="text_content">
-        [% section.content %]
+        [% chapter.content %]
     </div>
     [% INCLUDE 'comment/discussion.html' %]
 </div><!-- End of content -->
@@ -43,5 +43,5 @@
     
 </div><!-- End of right_col -->
 
-<!-- End of template: root/section/content.html -->
+<!-- End of template: root/chapter/content.html -->
 [% END %]

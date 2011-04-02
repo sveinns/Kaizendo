@@ -17,6 +17,6 @@ ok $project, "We have a project";
 
 my $snap = $project->latest_snapshot;
 
-ok scalar($snap->sections->flatten), '..and it has some chapters';
+ok scalar($snap->chapters->flatten), '..and it has some chapters';
 
 done_testing;

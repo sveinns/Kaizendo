@@ -19,8 +19,7 @@ all_from 'lib/App/Kaizendo.pm';
 
 configure_requires 'File::Copy::Recursive';  # needed by Module::Install::Catalyst
 requires 'JSON';
-requires 'Moose';
-requires 'Catalyst::Runtime' => '5.80022';
+requires 'Catalyst::Runtime' => '5.80032';
 requires 'CatalystX::Debug::RequestHeaders';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
@@ -29,7 +28,7 @@ requires 'Catalyst::Action::REST' => '0.86';
 requires 'Catalyst::View::TT';
 requires 'Template::Plugin::JSON';
 requires 'Catalyst::Model::KiokuDB' => '0.12';
-requires 'Moose';
+requires 'Moose' => '1.24';
 requires 'MooseX::Types';
 requires 'MooseX::Types::LoadableClass';
 requires 'MooseX::NonMoose';

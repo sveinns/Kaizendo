@@ -70,7 +70,7 @@ sub buildTestData {
 
     ok $doc->title("Innovation Happens Elsewhere"), 'Set project title';
 
-    # Add snapshots with new sections
+    # Add snapshots with new chapters
     my $latest_snapshot = $doc->latest_snapshot;
     my (@chapter_fns) = glob($Bin.'/data/IHE/ch*.html');
     ok scalar(@chapter_fns), 'There are some chapters in '."$Bin/data/IHE";
@@ -78,7 +78,7 @@ sub buildTestData {
         my ($fh, $version);
         open($fh, '<', $fn) or die $!;
         my $data = do { local $/; <$fh> };
-        $latest_snapshot = $latest_snapshot->append_section(
+        $latest_snapshot = $latest_snapshot->append_chapter(
             content        => $data,
             author         => $author1,
             commit_message => "Add chapter from " . $fn,
