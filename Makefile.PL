@@ -24,7 +24,7 @@ requires 'CatalystX::Debug::RequestHeaders';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
-requires 'Catalyst::Action::REST' => '0.86';
+requires 'Catalyst::Action::REST' => '0.90';
 requires 'Catalyst::View::TT';
 requires 'Template::Plugin::JSON';
 requires 'Catalyst::Model::KiokuDB' => '0.12';
