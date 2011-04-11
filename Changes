@@ -6,6 +6,7 @@ This file documents the revision history for Perl extension App::Kaizendo.
         - Rename some method calls and templates
         - Initial version of a JS commenting system (Ben Cawkwell)
         - Now using Test::CPAN::Changes
+        - Add a contrib dir with a deploy script (Stig Sandbeck Mathisen)
 
 0.0.003  2010-07-20
 
