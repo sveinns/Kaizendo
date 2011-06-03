@@ -19,24 +19,26 @@ all_from 'lib/App/Kaizendo.pm';
 
 configure_requires 'File::Copy::Recursive';  # needed by Module::Install::Catalyst
 requires 'JSON';
-requires 'Moose';
-requires 'Catalyst::Runtime' => '5.80022';
+requires 'Catalyst::Runtime' => '5.80032';
 requires 'CatalystX::Debug::RequestHeaders';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
-requires 'Catalyst::Action::REST';
+requires 'Catalyst::Action::REST' => '0.90';
 requires 'Catalyst::View::TT';
-requires 'Catalyst::Model::KiokuDB';
-requires 'Moose';
+requires 'Template::Plugin::JSON';
+requires 'Catalyst::Model::KiokuDB' => '0.12';
+requires 'Moose' => '1.24';
 requires 'MooseX::Types';
 requires 'MooseX::Types::LoadableClass';
+requires 'MooseX::NonMoose';
 requires 'Moose::Autobox' => '0.11';
 requires 'Method::Signatures::Simple';
 requires 'namespace::autoclean';
 requires 'Config::General';
 requires 'KiokuX::Model';
 requires 'KiokuDB::Backend::DBI';
+requires 'DateTime';
 requires 'aliased';
 
 recommends 'JSON::XS';
@@ -61,6 +63,7 @@ author_requires 'Test::Pod::Coverage' => '1.04';
 author_requires 'Test::Pod'           => '1.14';
 author_requires 'Test::EOL'           => '0.7';
 author_requires 'Test::NoTabs';
+author_requires 'CPAN::Changes'; # Test::CPAN::Changes
 
 tests_recursive;
 

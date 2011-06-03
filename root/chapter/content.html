@@ -1,0 +1,47 @@
+[% WRAPPER common/index.html
+    title = "$chapter.project.name, Chapter $chapter.id";
+%]
+<!-- Template: root/chapter/content.html -->
+
+<div id="left_col">
+    [% INCLUDE common/logo.html %]
+
+    [% INCLUDE common/help.html %]
+
+    <ul id="aspect_nav">
+        <li class="chapter">
+            <a href="..">List chapters</a>
+        </li>
+        <li class="chapter">
+            <a href="">&lt;chapter</a>
+        </li>
+        <li class="aspect list">
+            Aspects
+            <ul>
+                <li class="aspect option">
+                    <a href="">aspect1</a>
+                </li>
+                <li class="aspect option">
+                    <a href="">aspect2</a>
+                </li>
+            </ul>
+        </li>
+        <li class="chapter">
+            <a href="">chapter&gt;</a>
+        </li>
+    </ul>
+</div><!-- End of left_col -->
+
+<div id="content">
+    <div id="text_content">
+        [% chapter.content %]
+    </div>
+    [% INCLUDE 'comment/discussion.html' %]
+</div><!-- End of content -->
+
+<div id="right_col">
+    
+</div><!-- End of right_col -->
+
+<!-- End of template: root/chapter/content.html -->
+[% END %]

@@ -1,0 +1,62 @@
+---
+context:
+  id: 91af795a
+  url: /IHE/1/
+locations:
+  one:
+    child_paths: []
+    end_offset: 68
+    end_path: '/div/p:[1]'
+    id: one
+    start_offset: 31
+    start_path: '/div/p:[1]'
+    url: /IHE/1/
+  tre:
+    child_paths: []
+    end_offset: 292
+    end_path: '/div/p[2]:[1]'
+    id: tre
+    start_offset: 278
+    start_path: '/div/p[2]:[1]'
+    url: /IHE/1/
+  two:
+    child_paths: []
+    end_offset: 119
+    end_path: '/div/p:[1]'
+    id: two
+    start_offset: 62
+    start_path: '/div/p:[1]'
+    url: /IHE/1/
+thread:
+  - author: Ben Cawkwell
+    content: 'It is not obvious for most people what contenxt youare referring to the expansive thinking of the late 1990s, this is especially true given that most readers of this book will not be from a technical background.'
+    id: one
+    location:
+      child_paths: []
+      end_offset: 68
+      end_path: '/div/p:[1]'
+      id: one
+      start_offset: 31
+      start_path: '/div/p:[1]'
+      url: /IHE/1/
+    subject: Need to be more explicit about what expansive thinking is
+  - author: sjn
+    content: 'The epansive thinking really started in the late 1980s, it was just later that the technology became available to implement many of the features. The lessons were learned before the turn of the millenium.'
+    id: twoA
+    location:
+      child_paths: []
+      end_offset: 119
+      end_path: '/div/p:[1]'
+      id: two
+      start_offset: 62
+      start_path: '/div/p:[1]'
+      url: /IHE/1/
+    reply:
+      - author: Tom Jones
+        content: 'I concur, I was sex bombing it in the early 1980s'
+        reply:
+          - author: Kathrine
+            content: "You pervert, not with me you weren't"
+      - author: Dick Harry
+        content: Perhaps change the text so that effects of expansive thinking were present in the 1980s.
+    subject: These dates are wrong

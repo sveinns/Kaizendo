@@ -1,0 +1,26 @@
+# Test data
+
+This directory contains differen test data for the Kaizendo tool.
+
+# Content
+
+Content is from selected chapters of "Innovation Happens Elsewhere",
+found in full at www.dreamsongs.com (Licensed CC-BY-SA-2.0), and somewhat
+cleaned up.
+
+The content has been cleaned up using HTML tidy(1) and other tools that
+sveinns hasn't released yet. :-P
+
+# REST
+
+The REST data is a CSV file describing URLs, methods, expected content
+types, expected results and comments. For more details on the REST URL
+schema, see /docs/URL-schema.mkd
+
+# Editing
+
+If you want to edit the .csv file, here are a few options...
+
+  sqlitebrowser    # Has CSV import and export
+  LibreOffice Calc # Can read CSV files
+

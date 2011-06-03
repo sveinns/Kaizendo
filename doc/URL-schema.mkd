@@ -1,0 +1,117 @@
+# Kaizendo URL scheme
+
+ /{project}/{chapter}/{resource}
+
+ /{name}{-revision=master}{/id}
+ /{name}{-revision=master}/{id}{:aspect=main}{/resource}
+
+## Conventions in this document
+
+URLs are described using a syntax very much inspired by [http://tools.ietf.org/html/draft-gregorio-uritemplate-04](URI Templates).
+
+
+## Example URLs
+
+A .csv file with example URLs (including use and explanation) can be found in this distribution:
+
+* t/data/REST.csv
+* GitHub: http://github.com/sjn/Kaizendo/raw/master/t/data/REST.csv
+
+
+## Component overview
+
+ /{project}/{chapter}/{resource}
+
+ project  = One-word keyword that describes the topic or purpose of the $chapter
+ chapter  = Title or id of the a {project} subsection or chapter
+ resource = Specific resource related to a {chapter}
+
+
+## /{project}/
+
+The project name and revision. Revision is optional, and if it is omitted then "master" is assumed.
+
+ /{name}{-revision}/
+
+* {name}, e.g. the short-name of a book. May not contain a "-" in it's name.
+* {-revision}, e.g. release version or tag - always prefixed by a "-"
+
+### {name}
+
+A short single-word keyword that uniquely identifies the project.
+
+### {-revision=refs/heads/master}
+
+Used for identifying a chapter (and it's associated aspects) at a specific named revision (a "tag" in git termonology). If {-revision} is not present, we assume HEAD of the "master" branch. (Strictly speaking we might just as well allow any ID here that can be used as an identifying parameter to "git checkout". See the git-rev-parse(1) manual for details).
+
+
+* -1.0         # Show /{id}{:aspect}/ as it was at revision 1.0
+* -2.1         # Show /{id}{:aspect}/ as it was at revision 2.1
+* -2.2dev0     # Show /{id}{:aspect}/ as it was at revision 2.2dev0
+* -master      # Redirects to the latest stable revision of /{id}{:aspect}/
+* -stable      # Redirects to the latest stable revision of /{id}{:aspect}/ 
+* -            # List revisions that are available for /{id}{:aspect}/
+*              # Show latest (current) stable revision of /{id}{:aspect}/
+
+Examples above are assumed to be below /{name} .
+
+
+## /{chapter}/
+
+The $chapter uniquely identifies a chapter within a /$project/ according to the following parameters:
+
+ /{id}{:aspect}/
+
+* {id}, e.g. chapter number, chapter short-name, or something similar
+* {:aspect}, chapter aspect, including combinations of aspects
+
+A permalink to a /{chapter}/ must include a revision tag in it's /{project}/ URL part.
+
+### {id}
+
+Identifies a subsection or a chapter of a project. For a book, this means $id is identifying a specific chapter.
+
+* /1      # first chapter
+* /intro  # first chapter (named) 
+
+Examples above are assumed to be below a /{project} .
+
+### {:aspect=main}
+
+Used for identifying a specific aspect of a chapter. If aspect is not specified, we use the default aspect (the designated "main" version of the /{chapter}/.)
+
+The aspect identifyer can look like this:
+
+* :dys         # The main chapter is written to be more useful for dyslectics
+* :dys,depth0  # chapter is for dyslectics that only want the basics
+* :dys,depth5  # chapter is for dyslectics that want lots of depth/content
+* :depth5      # chapter is for students that want lots of depth/content
+* :            # List available aspects
+*              # Use default/authorative aspect
+
+Examples above are assumed to be below /{project}/{id} .
+
+
+## {resource}
+
+Used for any supporting data objects or queries related to a specific /{chapter}/ aspect.
+
+* /c           # A list of available discussions related to /{chapter}/
+* /c/id        # A specific comment, in conchapter
+* /{object}    # Image, SVG or other resource object related to /{chapter}/
+* /meta        # Access meta information about the /{chapter}/
+
+Examples above are assumed to be below /{project}/{chapter} .
+
+
+### Examples
+
+* /history/2/
+
+Show the contents of the latest stable version of the main aspect of chapter 2 of the history book.
+
+* /history/2;dys/c  
+
+List comments related to dyslectic's aspect of chapter 2 in the history book.
+
+

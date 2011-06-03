@@ -16,12 +16,13 @@ sub end : Action {
 }
 
 __PACKAGE__->config(
-    default   => 'text/html',
-    stash_key => 'rest',
-    map       => {
+    default      => 'text/html',
+    stash_key    => 'rest',
+    json_options => { allow_blessed => 1, relaxed => 1 },
+    map          => {
         'text/html'        => [ 'View', 'HTML', ],
         'application/json' => 'JSON',
-        'text/x−json'    => 'JSON',
+        'text/x−json'      => 'JSON',
     },
 );
 

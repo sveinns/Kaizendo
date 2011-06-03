@@ -4,7 +4,7 @@ use 5.008_005;
 use strict;
 use warnings;
 
-our $VERSION = '0.000_002';
+our $VERSION = '0.000_004';
 $VERSION = eval $VERSION;
 
 1;
@@ -17,6 +17,11 @@ App::Kaizendo - A tool for collaborative authoring of polyscopic documents
 =head1 SYNOPSIS
 
     script/kaizendo_server.pl
+
+
+=head1 STATUS
+
+This software is UNDER HEAVY DEVELOPMENT. Expect major changes!
 
 
 =head1 DESCRIPTION
@@ -33,6 +38,8 @@ If you want to learn more about the project, check out L<http://kaizendo.org/>.
 
 Salve J. Nilsen <sjn@kaizendo.org>
 Tomas Doran <bobtfish@bobtfish.net>
+Ben Cawkwell <bencawkwell@gmail.com>
+Stig Sandbeck Mathisen <ssm@fnord.no>
 
 
 =head1 COPYRIGHT

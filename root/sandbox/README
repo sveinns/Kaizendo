@@ -1,4 +1,41 @@
+#!env sh
+#
 # Testbed for figuring out the comments data
-# Using YAML::Shell for testing purposes
+# Using YAML::Shell for dumping the Perl datastructure
+# of the YAML file
+#
+# Using JSON::XS for converting from YAML to JSON
 
-ysh -r < comment.yml
+# Show one full discussion thread
+# .../_c/$id
+ysh -r < show_thread.yml
+
+test $? = 0 && json_xs -f yaml -t json \
+   < show_thread.yml \
+   > show_thread.json
+
+test $? = 0 && json_xs -f json -t yaml \
+   < show_thread.json \
+   > show_thread.yml.tmp
+
+test $? = 0 \
+   && diff -q show_thread.yml.tmp show_thread.yml \
+   && mv show_thread.yml.tmp show_thread.yml
+
+# List available threads
+# .../_c/
+ysh -r < list_threads.yml
+
+test $? = 0 && json_xs -f yaml -t json \
+   < list_threads.yml \
+   > list_threads.json
+
+test $? = 0 && json_xs -f json -t yaml \
+   < list_threads.json \
+   > list_threads.yml.tmp
+
+test $? = 0 \
+   && diff -q list_threads.yml.tmp list_threads.yml \
+   && mv list_threads.yml.tmp list_threads.yml
+
+

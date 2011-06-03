@@ -1,0 +1,73 @@
+# ABOUT
+
+Kaizendo is about creating collaboratively authored polyscopic documents.
+
+The goal is a web service that allows the management and creation of texts
+with "_aspects_", where each aspect is an alternative of the text that
+conveys the same message as the "original" text, but in a different way.
+
+E.g. a textbook with chapters that have alternative texts written for
+dyslectics, for fast readers and for "average" readers.
+
+To write such a text is a difficult and time-consuming task, especially
+when you want to support combinations of aspects while keeping a coherent
+narrative and language use across chapters and aspects.
+
+We want to make it possible (and perhaps even easy) to write these texts
+anyway.
+
+# STATUS
+
+We're is still in the starting phase, and needs your help. If you're
+interested, have a look at our [web site](http://kaizendo.org/) or join
+our [mailing list](http://talk.kaizendo.org/mailman/listinfo/kaizendoers)
+or the _#kaizendo_ IRC channel on irc.freenode.org.
+
+To get an idea of where you can help, check out the TODO.mkdn file in our
+Github repository.
+
+  [TODO](http://github.com/sjn/Kaizendo/blob/master/TODO.mkd)
+
+# COMMUNITY
+
+  * [IRC (Chat)](irc://irc.freenode.org/kaizendo)
+  * [Mailing list](http://talk.kaizendo.org/mailman/listinfo/kaizendoers)
+  * [Main webpage](http://kaizendo.org/)
+  * [Drumbeat project page](http://drumbeat.org/project/kaizendo)
+  * [GitHub repository](http://github.com/sjn/Kaizendo)
+  * [Bugtracker](https://rt.cpan.org/Public/Dist/Display.html?Name=App-Kaizendo)
+
+# TESTING
+
+To test the application, install any dependencies and run the unit tests
+as usual, and finally start the demo webserver:
+
+ perl Makefile.PL      # or run "cpan ." if you have it set up
+ make
+ make test             # generates test database
+
+ scripts/kaizendo_server.pl -d   # start server in debug mode
+
+And then point your browser to the URL mentioned at the last step.
+
+Running the test suite creates a database that you can browse, so you have
+to run it at least once.
+
+# DEBUGGING
+
+Debugging can be turned on by running the tests as above, and then firing up
+the server as follows:
+
+  script/kaizendo_server.pl -d -r
+
+# OTHER SOFTWARE
+
+This package includes code from projects that have their own licenses:
+
+  [jQuery](http://jquery.com/)
+  [JSON](http://json.org/)
+  [Blueprint CSS Framework](http://blueprintcss.org/)
+  [Readability](http://lab.arc90.com/experiments/readability/)
+
+Please see the respective project websites for licensing information and
+the opportunity to download the newest source code.

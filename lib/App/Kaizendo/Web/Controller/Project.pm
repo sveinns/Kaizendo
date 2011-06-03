@@ -14,27 +14,27 @@ with qw/
 sub base : Chained('/base') PathPart('') CaptureArgs(0) {
 }
 
-=head2 section
+=head2 chapter
 
 FIXME
 
 =cut
 
-sub section : Chained('base') PathPart('') CaptureArgs(1) {
+sub chapter : Chained('base') PathPart('') CaptureArgs(1) {
     my ( $self, $c, $project_name ) = @_;
     my $project = $c->model('Projects')->get_project_by_name( $project_name )
-        or $c->detach('/error404');
+        or $c->detach('/notfound_404');
     $c->stash( project => $project->latest_snapshot );
 }
 
-sub show : Chained('section') PathPart('') Args(0) {
+sub chapters : Chained('chapter') PathPart('') Args(0) {
 }
 
 __PACKAGE__->config(
     action => {
-        aspect_base  => { Chained => 'section' },
-        user_base    => { Chained => 'section' },
-        comment_base => { Chained => 'section' },
+        aspect_base  => { Chained => 'chapter' },
+        user_base    => { Chained => 'chapter' },
+        comment_base => { Chained => 'chapter' },
     },
 );
 
@@ -56,9 +56,9 @@ FIXME
 
 FIXME
 
-=head2 show
+=head2 chapters
 
-FIXME
+Show chapters in a project
 
 =head1 AUTHORS, COPYRIGHT AND LICENSE
 

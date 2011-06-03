@@ -1,0 +1,4 @@
+This contribution is a script to automatically install dependencies, and deploy
+the application in a temporary directory, on a schroot
+
+Requires Ubuntu Lucid.
