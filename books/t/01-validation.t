@@ -5,7 +5,7 @@ use WebService::Validator::HTML::W3C;
 
 # HTML preamble and postamble:
 my $html_top =<<'HTML_TOP';
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="generator" content=
